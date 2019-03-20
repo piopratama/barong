@@ -33,7 +33,10 @@
 		$where_in=$item[0];
 		for($i=1;$i<count($item);$i++)
 		{
-			$where_in=$where_in.",".$item[$i];
+			if(trim($item[$i])!="" || $item[$i]!=null)
+			{
+				$where_in=$where_in.",".$item[$i];
+			}
 		}
 	}
 	if($where_in!="")

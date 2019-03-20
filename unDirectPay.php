@@ -267,7 +267,6 @@ $result = $conn->query($sql);
 						if(isNaN($(this).val())==false && $(this).val()!="")
 						{
 							total=total+parseFloat($(this).val());
-							total=total+0.1*total;
 							$("#grandTotal").val(total);
 							if(total>0)
 							{
@@ -326,7 +325,6 @@ $result = $conn->query($sql);
 									if(isNaN($(this).val())==false && $(this).val()!="")
 									{
 										total=total+parseFloat($(this).val());
-										total=total+0.1*total;
 										$("#grandTotal").val(total);
 										var payment=parseFloat($("#deposit").val());
 										if(isNaN(payment)==false)
@@ -472,7 +470,6 @@ $result = $conn->query($sql);
 						if(isNaN($(this).val())==false && $(this).val()!="")
 						{
 							total=total+parseFloat($(this).val());
-							//total=total+0.1*total;
 							$("#grand").val(total);
 							var grandtotal=parseFloat(grand.val())+parseFloat(grand.val())*0;
 							grand_total.val(grandtotal);
@@ -511,7 +508,6 @@ $result = $conn->query($sql);
 						if(isNaN($(this).val())==false && $(this).val()!="")
 						{
 							total=total+parseFloat($(this).val());
-							//total=total+0.1*total;
 							grand.val(total);
 							var grandtotal=parseFloat(grand.val())+parseFloat(grand.val())*0;
 							grand_total.val(grandtotal);
