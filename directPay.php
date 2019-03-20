@@ -409,6 +409,7 @@ $api = $conn->query($sql2);
 										grand=grand+parseFloat($(this).val());
 									}
 								});
+								$("#grandTotal").val(grand);
 							}
 						});
 				});
