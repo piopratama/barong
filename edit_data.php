@@ -108,9 +108,18 @@ $result4 = $conn->query($supplier2);
 														if ($result->num_rows > 0) {
 														// output data of each row
 														while($row = $result->fetch_assoc()) {
+															if($row['id']==$d['kategori'])
+															{
 														?>
-													<option value="<?php echo $row['id']?>"><?php echo $row['nm_kategori'];?></option>
-													<?php
+															<option value="<?php echo $row['id']?>" selected><?php echo $row['nm_kategori'];?></option>
+														<?php
+															}
+															else
+															{
+														?>
+															<option value="<?php echo $row['id']?>"><?php echo $row['nm_kategori'];?></option>
+														<?php
+															}
 														}
 													}
 														$conn->close();
@@ -169,9 +178,18 @@ $result4 = $conn->query($supplier2);
 														if ($result->num_rows > 0) {
 														// output data of each row
 														while($row = $result2->fetch_assoc()) {
+															if($row['id_supplier']==$d['supplier'])
+															{
 														?>
-													<option value="<?php echo $row['id_supplier']?>"><?php echo $row['nm_supplier'];?></option>
+															<option value="<?php echo $row['id_supplier']?>" selected><?php echo $row['nm_supplier'];?></option>
 													<?php
+															}
+															else
+															{
+													?>
+																<option value="<?php echo $row['id_supplier']?>"><?php echo $row['nm_supplier'];?></option>
+													<?php
+															}
 														}
 													}
 														$conn->close();
