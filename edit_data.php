@@ -101,10 +101,9 @@ $result4 = $conn->query($supplier2);
 										<tr>
 											<td>
 											<div class="form-group">
-										      <label>category* :</label>
+										      <label>Category* :</label>
 										      <select class="form-control myItem2" name="category" style="width: 200%;" required="required">
-													<option value="<?php echo $d['kategori'];?>"><?php echo $d['nama_kat'];?></option>
-													<option value="">-- KOSONGKAN --</option>
+													<option value="">-- Select Category --</option>
 													<?php
 														if ($result->num_rows > 0) {
 														// output data of each row
@@ -143,7 +142,7 @@ $result4 = $conn->query($supplier2);
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Stock* :</label>
+										      <label for="usr">Stock (Current Stock + New Stock)* :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="stock" id="usr" value="<?php echo $d['stock'];?>" required="required" onkeypress="return isNumberKey(event)">
 										    </div></td>
 										</tr>

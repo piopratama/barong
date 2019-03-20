@@ -17,7 +17,7 @@ else
 }
 include_once 'koneksi.php';
 
-$barang = mysqli_query($conn, "SELECT tb_transaksi.invoice, nm_transaksi, Date(tnggl) as tnggl, (SELECT nama FROM tb_employee WHERE id=id_employee) AS nama_pegawai, (SELECT item FROM tb_barang WHERE id=id_item ) AS item, qty, discount, total_price, statuss FROM tb_transaksi;");
+$barang = mysqli_query($conn, "SELECT tb_transaksi.invoice, nm_transaksi, Date(tnggl) as tnggl, (SELECT nama FROM tb_employee WHERE id=id_employee) AS nama_pegawai, (SELECT item FROM tb_barang WHERE id=id_item ) AS item, qty, discount, total_price, statuss FROM tb_transaksi order by Date(tnggl) desc;");
 
 $kategori= mysqli_query($conn, "SELECT TK.nm_kategori, ROUND(SUM(TB.pur_price*TT.qty)) AS pur_price, ROUND(SUM(TT.total_price)) AS income, ROUND(SUM(TT.total_price-TB.pur_price*TT.qty)) AS profit FROM tb_transaksi TT 
 INNER JOIN tb_barang TB ON TT.id_item=TB.id INNER JOIN tb_kategori TK ON TB.kategori=TK.id 

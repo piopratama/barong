@@ -92,7 +92,7 @@ $result2 = $conn->query($supplier);
 											<td>
 												<div class="form-group">
 										      
-										      <label>category* :</label>
+										      <label>Category* :</label>
 										      <select class="form-control myItem2" name="category" style="width: 200%;" required="required">
 													<option value="">-- Select Category --</option>
 													<?php
