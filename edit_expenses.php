@@ -76,7 +76,7 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											<tr>
 												<td>	
 													<div class="form-group">
-													<label for="usr">Buyer :</label>
+													<label for="usr">Buyer* :</label>
 													<input type="hidden" class="form-control" name="id" value="<?php echo $d['id'];?>">
 													<select  name="buyer" class="form-control" require="required">
 															<option>-- Select Buyer --</option>
@@ -95,9 +95,9 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											<tr>
 												<td>	
 													<div class="form-group">
-													<label for="usr">Category :</label>
+													<label for="usr">Category* :</label>
 													<input type="hidden" class="form-control" name="id" value="<?php echo $d['id'];?>">
-													<select  name="category" class="form-control" require="required">
+													<select  name="category" class="form-control">
 															<option>-- Select Category --</option>
 															<?php
 															foreach($category as $emp)
@@ -114,36 +114,36 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Date :</label>
-											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="date" id="usr" value="<?php echo$d['date'];?>">
+											      <label for="usr">Date* :</label>
+											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="date" id="usr" value="<?php echo$d['date'];?>" required="required">
 											    </div></td>
 											</tr>
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">item :</label>
-											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="item" id="usr" value="<?php echo $d['item'];?>">
+											      <label for="usr">item* :</label>
+											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="item" id="usr" value="<?php echo $d['item'];?>" required="required">
 											    </div></td>
 											</tr>
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Quantity</label>
-											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="qty" id="usr" value="<?php echo $d['qty'];?>">
+											      <label for="usr">Quantity* :</label>
+											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="qty" id="usr" value="<?php echo $d['qty'];?>" require="required" onkeypress="return isNumberKey(event)" >
 											    </div></td>
 											</tr>
 											<tr>
 												
-												<td><label for="usr">Unit</label>
+												<td><label for="usr">Unit :</label>
 													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="unit" id="usr" value="<?php echo $d['unit'];?>"></td>
 											</tr>
 											<tr>
-												<td><label for="usr">Price</label>
-													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="price" id="usr" value="<?php echo $d['price'];?>"></td>
+												<td><label for="usr">Price* :</label>
+													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="price" id="usr" value="<?php echo $d['price'];?>" required="required" onkeypress="return isNumberKey(event)"></td>
 											</tr>
 											<tr>
-												<td><label for="usr">Total</label>
-													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="total" id="usr" value="<?php echo $d['total'];?>"></td>
+												<td><label for="usr">Total* :</label>
+													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="total" id="usr" value="<?php echo $d['total'];?>" required="required" onkeypress="return isNumberKey(event)"></td>
 											</tr>
 											
 

@@ -72,8 +72,6 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                     </thead>
                     <tbody>
                         <?php 
-                        if(count($expenses)>0)
-                        {
                             $no=1;
                             foreach ($expenses as $data) {?>
                             <tr>
@@ -95,7 +93,6 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                             <?php 
                             $no++; 
                             }
-                        }
                         ?>							
                     </tbody>
                 </table>
@@ -115,11 +112,11 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>Date</label>
+                                <label>Date* :</label>
                                 <input type="date" name="date_buy" class="form-control" placeholder="Date Buy" require="required">
                             </div>
                             <div class="form-group">
-                                <label>Buyer</label>
+                                <label>Buyer* :</label>
                                 <select class="form-control" name="buyer" require="required">
                                     <option>-- Select Buyer --</option>
                                     <?php
@@ -133,7 +130,7 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Category</label>
+                                <label>Category* :</label>
                                 <select class="form-control" name="category" require="required">
                                     <option>-- Select Category --</option>
                                     <?php
@@ -147,31 +144,31 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Item</label>
+                                <label>Item* :</label>
                                 <input type="text" name="item" class="form-control" placeholder="Item" require="required">
                             </div>
                             <div class="form-group">
-                                <label>Qty</label>
-                                <input type="number" name="qty" class="form-control" placeholder="Quantity" step="any" require="required">
+                                <label>Qty* :</label>
+                                <input type="text" name="qty" class="form-control" placeholder="Quantity"  require="required" onkeypress="return isNumberKey(event)">
                             </div>
                             <div class="form-group">
-                                <label>Unit</label>
-                                <select class="form-control" name="unit" require="required">
+                                <label>Unit :</label>
+                                <select class="form-control" name="unit">
                                     <option>-- Select Unit --</option>
-                                    <option>kg</option>
-                                    <option>gr</option>
-                                    <option>pcs</option>
-                                    <option>krat</option>
-                                    <option>botol</option>
+                                    <option value="kg">kg</option>
+                                    <option value="gr">gr</option>
+                                    <option value="pcs">pcs</option>
+                                    <option value="krat">krat</option>
+                                    <option value="botol">botol</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Price</label>
-                                <input type="number" name="price" class="form-control" placeholder="Price" step="any" require="required">
+                                <label>Price* :</label>
+                                <input type="text" name="price" class="form-control" placeholder="Price"  require="required" onkeypress="return isNumberKey(event)">
                             </div>
                             <div class="form-group">
-                                <label>Total</label>
-                                <input type="number" name="total" class="form-control" placeholder="Total" step="any" require="required">
+                                <label>Total* :</label>
+                                <input type="text" name="total" class="form-control" placeholder="Total"  require="required" onkeypress="return isNumberKey(event)">
                             </div>
                            
                         </div>

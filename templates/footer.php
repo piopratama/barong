@@ -2,16 +2,30 @@
 <script src="./assets/jquery.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <!--<script src="./assets/bootstrap3.3.7/js/bootstrap.min.js"></script>-->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>0
 <script src="./assets/select2.min.js"></script>
 <script src="./assets/jquery.dataTables.min.js"></script>
 <script src="./assets/chart.js"></script>
+<script src="./assets/chart.js"></script>
 <script src="./assets/jquery.scannerdetection.compatibility.js"></script>
 <script src="./assets/jquery.scannerdetection.js"></script>
-<br>
 <script>
     $(document).ajaxStart(function() { Pace.restart(); });
+    
+    function formatDate(date) {
+            var monthNames = [
+                "January", "February", "March",
+                "April", "May", "June", "July",
+                "August", "September", "October",
+                "November", "December"
+            ];
 
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            return day + ' ' + monthNames[monthIndex] + ' ' + year;
+        }   
     /*var rupiah = document.getElementById("rupiah");
     rupiah.addEventListener("keyup", function(e) {
     // tambahkan 'Rp.' pada saat form di ketik

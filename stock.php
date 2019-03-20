@@ -47,7 +47,7 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
 								</button>
-								<a class="navbar-brand" style="font-size: 40px;" href="#">Deli Point</a>
+								<a class="navbar-brand" style="font-size: 40px;" href="#">Barong</a>
 							</div>
 					
 							<!-- Collect the nav links, forms, and other content for toggling -->

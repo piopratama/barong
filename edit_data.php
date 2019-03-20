@@ -49,7 +49,7 @@ $result4 = $conn->query($supplier2);
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-									<a class="navbar-brand" style="font-size: 40px;" href="#">Deli Point</a>
+									<a class="navbar-brand" style="font-size: 40px;" href="#">Barong</a>
 								</div>
 						
 								<!-- Collect the nav links, forms, and other content for toggling -->
@@ -130,28 +130,21 @@ $result4 = $conn->query($supplier2);
 											<td>	<div class="form-group">
 										      <label for="usr">Name* :</label>
 										      <input type="hidden" name="id" value="<?php echo $d['id']?>">
-										      <input type="text" style="width: 200%;" class="form-control" name="name" id="usr" value="<?php echo $d['item'];?>" required="required>
-										    </div></td>
-										</tr>
-										<tr>
-											
-											<td>	<div class="form-group">
-										      <label for="usr">Purchase Price* :</label>
-										      <input type="text" style="width: 200%;" class="form-control" name="purchase_price" id="rupiah" value="<?php echo $d['pur_price'];?>" required="required">
+										      <input type="text" style="width: 200%;" class="form-control" name="name" id="usr" value="<?php echo $d['item'];?>" required="required">
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
 										      <label for="usr">Price* :</label>
-										      <input type="text" style="width: 200%;" class="form-control" name="price" id="rupiah" value="<?php echo $d['price'];?>"  required="required">
+										      <input type="text" style="width: 200%;" class="form-control" name="price" id="rupiah" value="<?php echo $d['price'];?>"  required="required" onkeypress="return isNumberKey(event)">
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
 										      <label for="usr">Stock* :</label>
-										      <input type="text" style="width: 200%;" class="form-control" name="stock" id="usr" value="<?php echo $d['stock'];?>" required="required">
+										      <input type="text" style="width: 200%;" class="form-control" name="stock" id="usr" value="<?php echo $d['stock'];?>" required="required" onkeypress="return isNumberKey(event)">
 										    </div></td>
 										</tr>
 										<tr>
@@ -162,13 +155,17 @@ $result4 = $conn->query($supplier2);
 										    </div></td>
 										</tr>
 										<tr>
-											
+										<tr>
+											<td>	<div class="form-group">
+										      <label for="usr">Purchase Price* :</label>
+										      <input type="text" style="width: 200%;" class="form-control" name="purchase_price" id="rupiah" value="<?php echo $d['pur_price'];?>" required="required" onkeypress="return isNumberKey(event)">
+										    </div></td>
+										</tr>	
 										<td>
 											<div class="form-group">
 										      <label>Supplier :</label>
 										      <select class="form-control myItem2" name="supplier" style="width: 200%;">
-													<option value="<?php echo $d['supplier'];?>"><?php echo $d['nama_sup'];?></option>
-													<option value="">-- KOSONGKAN --</option>
+													<option value="">-- Select Supplier --</option>
 													<?php
 														if ($result->num_rows > 0) {
 														// output data of each row
