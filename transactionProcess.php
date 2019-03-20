@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	date_default_timezone_set('Asia/Singapore');
 	if(empty($_SESSION['username'])){
 		header("location:index.php");
 	}

@@ -1,5 +1,6 @@
 <?php 
 session_start();
+date_default_timezone_set('Asia/Singapore');
 if(empty($_SESSION['username'])){
     header("location:index.php");
 }
@@ -23,7 +24,10 @@ $stock=$_POST['stock'];
 $unit=$_POST['unit'];
 $supplier=$_POST['supplier'];
 $purchase=$_POST['purchase_price'];
+$barcode=$_POST['barcode'];
+$date=date('Y-m-d H:i:s');
 
-mysqli_query($conn, "UPDATE tb_barang SET item='$name', price='$price', stock='$stock', unit='$unit', supplier='$supplier', kategori='$category', pur_price='$purchase' WHERE id='$id'");
+
+mysqli_query($conn, "UPDATE tb_barang SET item='$name', price='$price', stock='$stock', unit='$unit', supplier='$supplier', barcode='$barcode', kategori='$category', `date`='$date', pur_price='$purchase' WHERE id='$id'");
 header("location:stock.php");
 ?>

@@ -49,7 +49,7 @@ $result4 = $conn->query($supplier2);
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-									<a class="navbar-brand" style="font-size: 40px;" href="#">Barong</a>
+									<a class="navbar-brand" style="font-size: 40px;" href="#">Deli Point</a>
 								</div>
 						
 								<!-- Collect the nav links, forms, and other content for toggling -->
@@ -101,8 +101,8 @@ $result4 = $conn->query($supplier2);
 										<tr>
 											<td>
 											<div class="form-group">
-										      <label>category :</label>
-										      <select class="form-control myItem2" name="category" style="width: 200%;">
+										      <label>category* :</label>
+										      <select class="form-control myItem2" name="category" style="width: 200%;" required="required">
 													<option value="<?php echo $d['kategori'];?>"><?php echo $d['nama_kat'];?></option>
 													<option value="">-- KOSONGKAN --</option>
 													<?php
@@ -122,44 +122,43 @@ $result4 = $conn->query($supplier2);
 										</tr>
 										<tr>												
 											<td>	<div class="form-group">
-										      <label for="usr">Barcode :</label>
-										      <input type="hidden" name="id" value="<?php echo $d['id']?>">
+										      <label for="usr">Barcode :</label>	
 										      <input type="text" style="width: 200%;" class="form-control" name="barcode" id="barcode" value="<?php echo $d['barcode'];?>">
 										    </div></td>
 										</tr>
 										<tr>												
 											<td>	<div class="form-group">
-										      <label for="usr">Name :</label>
+										      <label for="usr">Name* :</label>
 										      <input type="hidden" name="id" value="<?php echo $d['id']?>">
-										      <input type="text" style="width: 200%;" class="form-control" name="name" id="usr" value="<?php echo $d['item'];?>">
+										      <input type="text" style="width: 200%;" class="form-control" name="name" id="usr" value="<?php echo $d['item'];?>" required="required>
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Purchase Price :</label>
-										      <input type="text" style="width: 200%;" class="form-control" name="purchase_price" id="rupiah" value="<?php echo $d['pur_price'];?>">
+										      <label for="usr">Purchase Price* :</label>
+										      <input type="text" style="width: 200%;" class="form-control" name="purchase_price" id="rupiah" value="<?php echo $d['pur_price'];?>" required="required">
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Price :</label>
-										      <input type="text" style="width: 200%;" class="form-control" name="price" id="rupiah" value="<?php echo $d['price'];?>">
+										      <label for="usr">Price* :</label>
+										      <input type="text" style="width: 200%;" class="form-control" name="price" id="rupiah" value="<?php echo $d['price'];?>"  required="required">
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Stock :</label>
-										      <input type="text" style="width: 200%;" class="form-control" name="stock" id="usr" value="<?php echo $d['stock'];?>">
+										      <label for="usr">Stock* :</label>
+										      <input type="text" style="width: 200%;" class="form-control" name="stock" id="usr" value="<?php echo $d['stock'];?>" required="required">
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Unit</label>
-										      <input type="text" style="width: 200%;" class="form-control" name="unit" id="usr" value="<?php echo $d['unit'];?>">
+										      <label for="usr">Unit* :</label>
+										      <input type="text" style="width: 200%;" class="form-control" name="unit" id="usr" value="<?php echo $d['unit'];?>" required="required">
 										    </div></td>
 										</tr>
 										<tr>

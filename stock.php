@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 $title="Stock";
 
 if(empty($_SESSION['username'])){
@@ -17,9 +18,9 @@ else
 	}
 }
 include_once 'koneksi.php';
-$barang = mysqli_query($conn, "SELECT tb_barang.`id`, tb_barang.`item`, tb_barang.`price`, tb_barang.`stock`, tb_barang.`unit`, tb_kategori.nm_kategori AS kategori, tb_supplier.`nm_supplier` AS supplier, tb_barang.pur_price FROM tb_barang LEFT JOIN tb_kategori ON tb_barang.`kategori`=tb_kategori.`id` LEFT JOIN tb_supplier ON tb_barang.`supplier`=tb_supplier.`id_supplier` order by id desc;");
-$stock_kurang = mysqli_query($conn, "SELECT tb_barang.id, tb_barang.item, tb_barang.stock, tb_barang.unit, tb_supplier.`nm_supplier` AS supplier FROM tb_barang LEFT JOIN tb_supplier ON tb_barang.`supplier`=tb_supplier.`id_supplier` WHERE tb_barang.stock<='5';");
-$stock_expired = mysqli_query($conn, "SELECT tb_expired.id, tb_expired.id_item, tb_barang.item, tb_expired.qty FROM tb_expired INNER JOIN tb_barang ON tb_expired.`id_item`=tb_barang.`id` WHERE tb_expired.`expired_date`<CURDATE();;");
+$barang = mysqli_query($conn, "SELECT tb_barang.`id`, tb_barang.`date`, tb_barang.`item`, tb_barang.`price`, tb_barang.`stock`, tb_barang.`unit`, tb_kategori.nm_kategori AS kategori, tb_supplier.`nm_supplier` AS supplier, tb_barang.pur_price FROM tb_barang LEFT JOIN tb_kategori ON tb_barang.`kategori`=tb_kategori.`id` LEFT JOIN tb_supplier ON tb_barang.`supplier`=tb_supplier.`id_supplier` order by id desc;");
+$stock_kurang = mysqli_query($conn, "SELECT tb_barang.id, tb_barang.`date`, tb_barang.item, tb_barang.stock, tb_barang.unit, tb_supplier.`nm_supplier` AS supplier FROM tb_barang LEFT JOIN tb_supplier ON tb_barang.`supplier`=tb_supplier.`id_supplier` WHERE tb_barang.stock<='5';");
+/*$stock_expired = mysqli_query($conn, "SELECT tb_expired.id, tb_expired.id_item, tb_barang.item, tb_expired.qty FROM tb_expired INNER JOIN tb_barang ON tb_expired.`id_item`=tb_barang.`id` WHERE tb_expired.`expired_date`<CURDATE();");*/
 $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.`pur_price`*tb_barang.`stock`) AS jumlah FROM tb_barang INNER JOIN tb_kategori ON tb_barang.`kategori`=tb_kategori.`id` GROUP BY tb_kategori.`nm_kategori`;");
 ?>
@@ -46,7 +47,7 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
 								</button>
-								<a class="navbar-brand" style="font-size: 40px;" href="#">Barong</a>
+								<a class="navbar-brand" style="font-size: 40px;" href="#">Deli Point</a>
 							</div>
 					
 							<!-- Collect the nav links, forms, and other content for toggling -->
@@ -77,85 +78,11 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 			</div>
 		</div>
 		
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
 			<div class="col-md-12 ">
 			<a type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" href="administrator.php" style="margin:0 5px 10px 0;"></a>
-					<h1>STOCK KURANG</h1>
-					<table id="example2" class="table table-bordered" style="width: 100%;">
-	
-						
-						
-						<thead>
-							<tr>
-								
-								<th>Item</th>
-								<th>Stock</th>
-								<th>Unit</th>
-								<th>Supplier</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php 
-							$no=1;
-							foreach ($stock_kurang as $kurang) {?>
-							<tr>
-								<td><?php echo $kurang['item']?></td>
-								<td><?php echo $kurang['stock']?></td>
-								<td><?php echo $kurang['unit']?></td>
-								<td><?php echo $kurang['supplier']?></td>
-								<td>
-									
-									<a type="button" class="btn btn-success" href="edit_data.php?id=<?php echo $kurang['id'];?>"><span class="glyphicon glyphicon-pencil"></span></a>
-								</td>
-							</tr>
-							<?php $no++; }?>						
-						</tbody>
-					</table>
-				</div>
-				
-				<!--<div class="col-md-12 ">
-				
-					<h1>STOCK EXPIRED</h1>
-					<table id="example3" class="table table-bordered" style="width: 100%;">
-	
-						
-						
-						<thead>
-							<tr>
-								
-								<th>Item</th>
-								<th>QTY</th>
-								<th>Status</th>
-								
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php 
-							$no=1;
-							foreach ($stock_expired as $expired) {?>
-							<tr>
-								
-								
-								<td><?php echo $expired['item']?> <input type="text" name="id" value="<?php echo $expired['id']?>" style=""><input type="text" name="id_item" value="<?php echo $expired['id_item']?>" style=""></td>
-								<td><?php echo $expired['qty']?></td>
-								<td><h3 style="color:red;">EXPIRED</h3></td>
-								
-								<td>
-									
-								<button class="btn btn-danger deleteItem" id=""><span class="glyphicon glyphicon-trash"></span></button>
-								</td>
-							</tr>
-							<?php $no++; }?>						
-						</tbody>
-					</table>
-				</div>-->
-
-				<div class="col-md-12">
-				
-					<table id="example" class="table table-bordered" style="width: 100%;">
+			<table id="example" class="table table-bordered" style="width: 100%;">
 						<h1>TABEL STOCK</h1>
 						
 						
@@ -163,6 +90,7 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 						<thead>
 							<tr>
 								<th>ID</th>
+								<th>Date</th>
 								<th>Item</th>
 								<th>Category</th>
 								<th>Purchase Price</th>
@@ -181,6 +109,7 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 							foreach ($barang as $data) {?>
 							<tr>
 								<td><?php echo $no ?></td>
+								<td><?php echo $data["date"];?></td>
 								<td><?php echo $data["item"];?></td>
 								<td><?php echo $data["kategori"];?></td>
 								<td><?php echo rupiah($data["pur_price"]);?></td>
@@ -205,6 +134,38 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 								<td>
 									<button class="btn btn-danger deleteItem" id="<?php echo $data['id']; ?>"><span class="glyphicon glyphicon-trash"></span></button>
 									<a type="button" class="btn btn-success" href="edit_data.php?id=<?php echo $data['id'];?>"><span class="glyphicon glyphicon-pencil"></span></a>
+								</td>
+							</tr>
+							<?php $no++; }?>						
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-12">
+				<h1>STOCK KURANG</h1>
+					<table id="example2" class="table table-bordered" style="width: 100%;">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Item</th>
+								<th>Stock</th>
+								<th>Unit</th>
+								<th>Supplier</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php 
+							$no=1;
+							foreach ($stock_kurang as $kurang) {?>
+							<tr>
+								<td><?php echo $kurang['date']?></td>
+								<td><?php echo $kurang['item']?></td>
+								<td><?php echo $kurang['stock']?></td>
+								<td><?php echo $kurang['unit']?></td>
+								<td><?php echo $kurang['supplier']?></td>
+								<td>
+									
+									<a type="button" class="btn btn-success" href="edit_data.php?id=<?php echo $kurang['id'];?>"><span class="glyphicon glyphicon-pencil"></span></a>
 								</td>
 							</tr>
 							<?php $no++; }?>						

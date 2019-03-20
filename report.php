@@ -29,7 +29,7 @@ $method= mysqli_query($conn, "SELECT method,SUM(payment+deposit) AS payment FROM
 
 $customer= mysqli_query($conn, "SELECT nm_transaksi, SUM(total_price) AS total_price FROM tb_transaksi WHERE statuss=1 GROUP BY nm_transaksi;");
 
-$debt = mysqli_query($conn, "SELECT nm_transaksi, total_price, deposit FROM tb_transaksi tt INNER JOIN tb_deposit td ON tt.invoice=td.invoice WHERE statuss=0 GROUP BY nm_transaksi;");
+$debt = mysqli_query($conn, "SELECT nm_transaksi, total_price, deposit FROM tb_transaksi tt INNER JOIN tb_deposit td ON tt.invoice=td.invoice WHERE statuss=0 GROUP BY tt.invoice;");
 
 $debtCustomerOption = mysqli_query($conn, "SELECT id, nm_transaksi, invoice FROM tb_transaksi where statuss='0' group by invoice;");
 
@@ -77,7 +77,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-									<a class="navbar-brand" style="font-size: 40px;" href="#">Barong</a>
+									<a class="navbar-brand" style="font-size: 40px;" href="#">Deli Point</a>
 								</div>
 						
 								<!-- Collect the nav links, forms, and other content for toggling -->
@@ -123,10 +123,11 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						</select>
 						Debt Customer:
 						<select name="debt" id="debt">
+							<option value="">--Select Dept Customer--</option>
 							<?php 
 							foreach ($debtCustomerOption as $dc){
 							?>
-							<option value="<?php echo $dc['nm_transaksi']?>"><?php echo $dc['nm_transaksi']?></option>
+							<option value="<?php echo $dc['invoice']?>"><?php echo $dc['nm_transaksi']?></option>
 							<?php } ?>
 						</select>
 						<button type="submit" class="btn btn-success" style="margin-left:10px;">Print</button>
@@ -177,6 +178,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					</div>
 					<div id="table2">
 						<h1> TABEL REPORT CATEGORY</h1>
+						<h3>Only Paid Transaction (Does't Include Deposit)</h3>
 						<table id="example2" class="table table-bordered" style="width: 100%;">
 							<thead>
 								<tr>
@@ -204,6 +206,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					</div>
 					<div id="table3">
 						<h1 > TABEL REPORT METHOD</h1>
+						<h3>Finished Transaction Include Deposit Unfinished Transaction</h3>
 						<table id="example3" class="table table-bordered" style="width: 100%;">
 							<thead>
 								<tr>
@@ -225,6 +228,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					</div>
 					<div id="table4">
 						<h1> TABEL REPORT CUSTOMER</h1>
+						<h3>Only Finished Transaction</h3>
 						<table id="example4" class="table table-bordered" style="width: 100%;">
 							<thead>
 								<tr>
@@ -246,8 +250,29 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					</div>
 					<div id="table5">
 						<h1> TABEL DEBT CUSTOMER</h1>
+						<h5> Only Unfinished Transaction</h5>
 						<table id="example5" class="table table-bordered" style="width: 100%;">
-							
+						<thead>
+								<tr>
+									<th>Customer Name</th>
+									<th>Total Income</th>
+									<th>Deposit</th>
+									<th>Debt</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+								$no=1;
+								foreach ($debt as $d) {?>
+								<tr>
+									<td><?php echo $d["nm_transaksi"];?></td>
+									<td><?php echo rupiah($d["total_price"]);?></td>
+									<td><?php echo rupiah($d["deposit"]);?></td>
+									<td><?php echo rupiah($d["total_price"]-$d["deposit"]);?></td>
+								</tr>
+								<?php $no++; }?>							
+							</tbody>
 						</table><br>
 					</div>
 					</div>
@@ -372,6 +397,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 				var oTable2=$("#example2").dataTable();
 				var oTable3=$("#example3").dataTable();
 				var oTable4=$("#example4").dataTable();
+				var oTable5=$("#example5").dataTable();
 				
 				var html=$("#parent_item_container").html();
 				$("#add_item_btn").click(function(event) {
@@ -461,11 +487,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					getTableCustomerStatus();
 					getDataIncome();
 					getDataDeposit();
-					$("#table").show();
-					$("#table2").show();
-					$("#table3").show();
-					$("#table4").show();
-					$("#table5").hide();
+
 				});
 				
 				$("#date_start").change(function(){
@@ -476,11 +498,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					getDataIncome();
 					getDataDeposit();
 					getDataTotalIncome();
-					$("#table").show();
-					$("#table2").show();
-					$("#table3").show();
-					$("#table4").show();
-					$("#table5").hide();
+
 				});
 
 				$("#date_end").change(function(){
@@ -491,36 +509,24 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					getDataIncome();
 					getDataDeposit();
 					getDataTotalIncome();
-					$("#table").show();
-					$("#table2").show();
-					$("#table3").show();
-					$("#table4").show();
-					$("#table5").hide();
+
 				});
 
 				$("#debt").change(function(){
-					$("#table5").show();
 					getTableDebt();
-					$("#table").hide();
-					$("#table2").hide();
-					$("#table3").hide();
-					$("#table4").hide();
 				});
-
-				$("#table5").hide();
 
 				function getTableDebt()
 				{
-					var customerName=$("#debt").val();
+					var invoice=$("#debt").val();
 					$.ajax({
 							url: 'getTableDebt.php',
 							type: 'post',
-							data: {customerName:customerName},
+							data: {invoice:invoice},
 							dataType: 'text',
 							success: function (data) {
 								console.log(data);
 								$("#example5").html(data);
-								$('#example5').dataTable();
 								
 								//oTable.fnClearTable();
 								

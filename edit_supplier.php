@@ -44,7 +44,7 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier WHERE id_supplier=$id
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-									<a class="navbar-brand" style="font-size: 40px;" href="#">Deli Shop</a>
+									<a class="navbar-brand" style="font-size: 40px;" href="#">Barong</a>
 								</div>
 						
 								<!-- Collect the nav links, forms, and other content for toggling -->

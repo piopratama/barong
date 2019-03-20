@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('Asia/Singapore');
 if(empty($_SESSION['username'])){
 	header("location:index.php");
 }
@@ -25,7 +26,7 @@ $price=$_POST["price"];
 $total=$_POST["total"];
 $category=$_POST["category"];
 
-$date_insert = date('Y-m-d h:i:s', time());
+$date_insert = date('Y-m-d H:i:s', time());
 
 include 'koneksi.php';
 $sql="INSERT INTO tb_expenses(buyer,`date`,date_insert,item,qty,unit,price,total,category) VALUES($buyer,'$date_buy','$date_insert','$item',$qty,'$unit',$price,$total, '$category')";

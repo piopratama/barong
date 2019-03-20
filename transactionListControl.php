@@ -32,7 +32,7 @@
 		    // Move to the right
 		    $this->Cell(80);
 		    // Title
-		    $this->Cell(30,10,'Deli Shop',0,0,'C');
+		    $this->Cell(30,10,'Barong',0,0,'C');
 		    // Line break
 		    $this->Ln(20);
 		    $w = array(35, 35, 20, 25, 9, 25, 30, 13);

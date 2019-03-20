@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	date_default_timezone_set('Asia/Singapore');
 	if(empty($_SESSION['username'])){
 		header("location:index.php");
 	}
@@ -23,12 +24,13 @@
 	$supplier = $_POST['supplier'];
 	$purchase = $_POST['purchase_price'];
 	$barcode=$_POST['barcode'];
+	$date=date('Y-m-d H:i:s');
 
 	// include database connection file
 	include 'koneksi.php';
 											
 	// Insert user data into table
-	$result = mysqli_query($conn, "INSERT INTO tb_barang(item,price,stock,unit,kategori,supplier,pur_price,barcode) VALUES('$name','$price','$stock','$unit','$kategori','$supplier','$purchase','$barcode')");
+	$result = mysqli_query($conn, "INSERT INTO tb_barang(item,price,stock,unit,kategori,supplier,pur_price,barcode, `date`) VALUES('$name','$price','$stock','$unit','$kategori','$supplier','$purchase','$barcode', '$date')");
 									
 	header("location:stock.php");
 ?>

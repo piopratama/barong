@@ -58,7 +58,7 @@ if($_POST['Submit']=='Print'){
 	if ($result->num_rows > 0) {
 		$i=0;
 		$sum=0;
-		$html="<h1>Transaction Deli Shop</h1><table border='1'><tr><td>Date</td><td>Invoice</td><td>Employee</td><td>Customer</td><td>Item</td><td>Qty</td><td>Dsc (10%)</td><td>Total Price</td><td>Method</td><td>Status</td></tr>";
+		$html="<h1>Transaction Barong</h1><table border='1'><tr><td>Date</td><td>Invoice</td><td>Employee</td><td>Customer</td><td>Item</td><td>Qty</td><td>Dsc (10%)</td><td>Total Price</td><td>Method</td><td>Status</td></tr>";
 		while($row = $result->fetch_assoc()) {
 			$html=$html."<tr>";
 			$html=$html."<td>".$row["tnggl"]."</td>";
@@ -106,7 +106,7 @@ else if($_POST['Submit']=='Pajak')
 	if ($result->num_rows > 0) {
 		$i=0;
 		$sum=0;
-		$html="<h1>Tax Deli Shop</h1><table border='1'><tr><td>Type</td><td>Total</td></tr>";
+		$html="<h1>Tax Barong</h1><table border='1'><tr><td>Type</td><td>Total</td></tr>";
 		while($row = $result->fetch_assoc()) {
 			$html=$html."<tr>";
 			$html=$html."<td>".$row["nm_kategori"]."</td>";
@@ -153,7 +153,7 @@ class PDF extends FPDF
 	    // Move to the right
 	    $this->Cell(80);
 	    // Title
-	    $this->Cell(30,10,'Deli Shop',0,0,'C');
+	    $this->Cell(30,10,'Barong',0,0,'C');
 	    // Line break
 	    $this->Ln(20);
 	    $w = array(20, 35, 18, 25, 35, 9, 13, 20, 20);
@@ -259,7 +259,7 @@ $header = array('Date', 'Invoice', 'Employee', 'Customer', 'Item', 'Qty', 'Price
 	    // Move to the right
 	    $this->Cell(80);
 	    // Title
-	    $this->Cell(30,10,'Laporan Pajak Deli Shop',0,0,'C');
+	    $this->Cell(30,10,'Laporan Pajak Barong',0,0,'C');
 	    // Line break
 	    $this->Ln(20);
 	    $w = array(35, 35);
