@@ -391,6 +391,7 @@ $api = $conn->query($sql2);
 					var total=$(this).parent().next().next().next().next().find(".total");
 					//qty.val(0);
 					//discount.val(0);
+					var grand=0;
 					$.ajax({
 							url: 'checkItemPrice.php',
 							type: 'post',
@@ -401,7 +402,13 @@ $api = $conn->query($sql2);
 								//console.log(data);
 								price_field.val(data[0].price);
 								label_price.html("Price ("+data[0].unit+")");
-								total.val(Math.round((price_field.val()*qty.val()-(discount.val()*price_field.val()*qty.val())/100)/1000)*1000);
+								total.val((price_field.val()*qty.val()-(discount.val()*price_field.val()*qty.val())/100));
+								$('.total').each(function(i, obj) {
+									if(isNaN($(this).val())==false && $(this).val()!="")
+									{
+										grand=grand+parseFloat($(this).val());
+									}
+								});
 							}
 						});
 				});
