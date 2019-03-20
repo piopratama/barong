@@ -1,0 +1,1 @@
+SELECT invoice, nm_transaksi, DATE(tnggl) AS tnggl, (SELECT nama FROM tb_employee WHERE id=id_employee) AS nama_pegawai, (SELECT item FROM tb_barang WHERE id=id_item )AS item, qty, total_price, statuss FROM tb_transaksi WHERE statuss="0" AND DATE(tnggl)="2019-01-24";

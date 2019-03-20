@@ -1,0 +1,21 @@
+html,body{
+	font-family: 'Slabo 27px', serif;
+	background-color: #f0f0f0;
+
+}
+
+.text_center{
+	margin-left: 45%;
+}
+
+.btn-primary{
+	margin-left: 45%;
+}
+
+.navbar-default .navbar-nav>li>a{
+	color: #f0f0f0 !important;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+	color: #000000 !important;
+}

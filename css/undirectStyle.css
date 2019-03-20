@@ -1,0 +1,40 @@
+html,body{
+	font-family: 'Slabo 27px', serif;
+	background-color: #f0f0f0;
+
+}
+
+#grand{
+	display: none;
+}
+
+#directPay_div{ 
+	padding: 20px;
+	margin-top: 20px;
+	border-radius: 10px;
+	line-height: 10px;
+}
+
+#directPay_div label{
+	margin-left: 5px;
+	font-size: 15px;
+}
+
+#itemForm{
+	background-color: darkgray;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 40px 0px;
+}
+
+#itemBtn{
+	margin-right: 5px;
+}
+
+.navbar-default .navbar-nav>li>a{
+	color: #f0f0f0 !important;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+	color: #000000 !important;
+}
