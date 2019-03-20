@@ -2,7 +2,7 @@
 <script src="./assets/jquery.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <!--<script src="./assets/bootstrap3.3.7/js/bootstrap.min.js"></script>-->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>0
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="./assets/select2.min.js"></script>
 <script src="./assets/jquery.dataTables.min.js"></script>
 <script src="./assets/chart.js"></script>
