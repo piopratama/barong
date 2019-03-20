@@ -19,6 +19,9 @@ else
 require 'koneksi.php';
 $sql = "SELECT * FROM tb_barang";
 $result = $conn->query($sql);
+
+$sql2 = "SELECT * FROM tb_api";
+$api = $conn->query($sql2);
 ?>
 <!DOCTYPE html>
 <html>
@@ -200,6 +203,24 @@ $result = $conn->query($sql);
 			$session_value=(isset($_SESSION['message']))?$_SESSION['message']:'';
 			unset($_SESSION['message']);
 			$session_casier=(isset($_SESSION['nama']))?$_SESSION['nama']:'';
+			$apiPrinter="";
+			$portPrinter="";
+			$namePrinter="";
+			$address="";
+			$address2="";
+			$phone="";
+			$email="";
+			foreach($api as $val)
+			{
+				$apiPrinter = $val["api"];
+				$portPrinter = $val["port"];
+				$namePrinter = $val["name"];
+				$address=$val["address"];
+				$address2=$val["address2"];
+				$phone=$val["phone"];
+				$email=$val["email"];
+			}
+			
 		?>
 		<?php include('./templates/footer.php'); ?>
 		<script>
@@ -208,6 +229,13 @@ $result = $conn->query($sql);
 				var casier_name='<?php echo $session_casier;?>';
 				$("#printBtn").attr('disabled', 'disabled');
 				$("#printItem").attr('disabled', 'disabled');
+				var api = '<?php echo $apiPrinter;?>';
+				var port = '<?php echo $portPrinter;?>';
+				var namePrinter = '<?php echo $namePrinter;?>';
+				var address = '<?php echo $address;?>';
+				var address2 = '<?php echo $address2;?>';
+				var phone = '<?php echo $phone;?>';
+				var email = '<?php echo $email;?>';
 				var manyItem=1;
 
 				if(message!="")
@@ -230,24 +258,27 @@ $result = $conn->query($sql);
 					}
 
 					return rupiah;
-				}
+				}				
 
 				$("#printItem").click(function(event) {
+					var mydate = formatDate(new Date($("#date").val()));
+					//console.log(mydate);
 					var grandTotalCheck=$("#grandTotal").val();
 					if(grandTotalCheck!="" && grandTotalCheck!="0")
 					{
+						var printer = new Recta(api.toString(), port.toString());
 						//var printer = new Recta('4590384132', '1811');
-						var printer = new Recta('3937725458', '1811');
+
 						printer.open().then(function () {
 							var x=[];
 							printer.align('center')	
-							.text('Barong')
+							.text(namePrinter)
 							.bold(true)
-							.text(formatDate($("#date").val()))
-							.text('Waribang Kesiman')
-							.text('Badung - Bali')
-							.text('(0361) 2096267')
-							.text('')
+							.text(mydate)
+							.text(address)
+							.text(address2)
+							.text(phone)
+							.text(email)
 							.text('cashier : '+casier_name)
 							.text('------------------------------');
 							printer.align('left')
@@ -358,15 +389,8 @@ $result = $conn->query($sql);
 					var discount=$(this).parent().next().next().next().find(".discount");
 					var label_price=$(this).parent().next().next().find(".label_price");
 					var total=$(this).parent().next().next().next().next().find(".total");
-					if(qty.val()=="" || qty.val()==null)
-					{
-						qty.val(0);
-					}
-
-					if(discount.val()=="" || discount.val()==null)
-					{
-						discount.val(0);
-					}
+					//qty.val(0);
+					//discount.val(0);
 					$.ajax({
 							url: 'checkItemPrice.php',
 							type: 'post',
@@ -377,7 +401,7 @@ $result = $conn->query($sql);
 								//console.log(data);
 								price_field.val(data[0].price);
 								label_price.html("Price ("+data[0].unit+")");
-								total.val(qty.val()*price_field.val()-discount.val()*qty.val()*price_field.val()/100);
+								total.val(Math.round((price_field.val()*qty.val()-(discount.val()*price_field.val()*qty.val())/100)/1000)*1000);
 							}
 						});
 				});
@@ -395,13 +419,13 @@ $result = $conn->query($sql);
 					}
 					total=total-discount*total/100.0;
 
-					price_total.val(total);
+					price_total.val(Math.round(total/1000)*1000);
 					var total=0;
 					$('.total').each(function(i, obj) {
 						if(isNaN($(this).val())==false && $(this).val()!="")
 						{
 							total=total+parseFloat($(this).val());
-							//total=total+0.1*total;
+							//total=total+trash*total;
 							grand.val(total);
 							var grandtotal=parseFloat(grand.val())+parseFloat(grand.val())*0;
 							grand_total.val(grandtotal);
@@ -443,7 +467,8 @@ $result = $conn->query($sql);
 						discount=0;
 					}
 					total=total-discount*total/100.0;
-					price_total.val(total);
+
+					price_total.val(Math.round(total/1000)*1000);
 					var total=0;
 					$('.total').each(function(i, obj) {
 						if(isNaN($(this).val())==false && $(this).val()!="")
@@ -536,6 +561,7 @@ $result = $conn->query($sql);
 							data: {barcode:barcode},
 							dataType: 'json',
 							success: function (data) {
+								console.log(data);
 								if(data!="")
 								{
 									var gotData=false;
@@ -564,6 +590,7 @@ $result = $conn->query($sql);
 										$('.myItem').each(function(i, obj) {
 											if(isNaN($(this).val())==true || $(this).val()=="")
 											{
+												
 												gotData=true;
 												var currQty=$(this).parent().next().find(".qtyItem").val();
 												if(currQty=="")
@@ -582,7 +609,7 @@ $result = $conn->query($sql);
 											$("#add_item_btn").click();
 											$('.myItem').each(function(i, obj) {
 												if(isNaN($(this).val())==true || $(this).val()=="")
-												{
+												{													
 													var currQty=$(this).parent().next().find(".qtyItem").val();
 													if(currQty=="")
 													{
