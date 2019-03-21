@@ -76,13 +76,13 @@ $api = mysqli_query($conn, "SELECT * from tb_api;");
 							<tr>
 								<th>ID</th>
 								<th>Api</th>
-								<th>Name</th>
+								<th>Nama</th>
 								<th>Port</th>
-                                <th>Address</th>
-                                <th>Address2</th>
-                                <th>Phone</th>
+                                <th>Alamat</th>
+                                <th>Alamat2</th>
+                                <th>Tlp</th>
                                 <th>Email</th>
-								<th>Action</th>
+								<th>Tindakan</th>
 							</tr>
 						</thead>
 						<tbody>

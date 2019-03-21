@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-$title="Update Supplier";
+$title="Perbarui Suplaiyer";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -21,7 +21,6 @@ else
 
 include 'koneksi.php';
 $id=$_GET['id'];
-echo $id;
 $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier WHERE id_supplier=$id;");
 
 ?>
@@ -77,7 +76,7 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier WHERE id_supplier=$id
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Supplier :</label>
+											      <label for="usr">Suplaiyer :</label>
 											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="supplier" id="usr" value="<?php echo$d['nm_supplier'];?>">
 											    </div></td>
 											</tr>
@@ -85,7 +84,7 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier WHERE id_supplier=$id
 												
 												<td>	
 													<div class="form-group">
-														<label for="usr">Address :</label>
+														<label for="usr">Alamat :</label>
 														<input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="address" id="usr" value="<?php echo $d['address'];?>">
 													</div>
 												</td>
@@ -94,7 +93,7 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier WHERE id_supplier=$id
 												
 												<td>	
 													<div class="form-group">
-														<label for="usr">Phone :</label>
+														<label for="usr">Tlp :</label>
 														<input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="phone" id="usr" value="<?php echo $d['no_hp'];?>">
 													</div>
 												</td>
@@ -102,7 +101,7 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier WHERE id_supplier=$id
 
 											<tr>
 												<td>
-													<button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Submit</button>
+													<button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Selesai</button>
 												</td>
 											</tr>
 										

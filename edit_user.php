@@ -88,7 +88,7 @@ $data = mysqli_query($conn, "SELECT * FROM tb_employee WHERE id='$id'")
 									<table>
 											<tr>
 												<td>	<div class="form-group">
-											      <label for="usr">Name :</label>
+											      <label for="usr">Nama* :</label>
 											      <input type="hidden" class="form-control" name="id" value="<?php echo $d['id'];?>">
 											      <input type="text" class="form-control" style="width: 200%; margin-bottom: 5px;" name="name" id="usr" value="<?php echo $d['nama'];?>">
 											    </div></td>
@@ -96,43 +96,43 @@ $data = mysqli_query($conn, "SELECT * FROM tb_employee WHERE id='$id'")
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Address :</label>
+											      <label for="usr">Alamat* :</label>
 											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="address" id="usr" value="<?php echo$d['address'];?>">
 											    </div></td>
 											</tr>
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Sallary :</label>
+											      <label for="usr">Gaji* :</label>
 											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="sallary" id="usr" value="<?php echo $d['sallary'];?>">
 											    </div></td>
 											</tr>
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Phone</label>
+											      <label for="usr">Tlp* :</label>
 											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="phone" id="usr" value="<?php echo $d['tlp'];?>">
 											    </div></td>
 											</tr>
 											<tr>
 												
-												<td><label for="usr">Username</label>
+												<td><label for="usr">Username* :</label>
 													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="username" id="usr" value="<?php echo $d['username'];?>"></td>
 											</tr>
 											<tr>
-												<td><label for="usr">Password</label>
+												<td><label for="usr">Password* :</label>
 													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="password" id="usr" value="<?php echo $d['password'];?>"></td>
 											</tr>
 											<tr>
-												<td><label for="usr">Level</label>
+												<td><label for="usr">Pangkat* :</label>
 													<select name="level" style="width: 200%; margin-bottom: 10px;" class="form-control" >
 														<option value="1">Admin</option>
-														<option value="0">Casier</option>
+														<option value="0">Kasir</option>
 													</select> </td>
 											</tr>
 
 											<tr>
-												<td><button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Submit</button></td>
+												<td><button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Selesai</button></td>
 												
 											</tr>
 										

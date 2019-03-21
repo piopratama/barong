@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$title="Direct Menu";
+$title="Menu Transaksi";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -63,13 +63,13 @@ $api = $conn->query($sql2);
 					<div class="col-md-4">
 						<div id="directPay_div">			
 							<div class="form-group">
-								<label for="">Date</label>
+								<label for="">Tanggal</label>
 								<input type="date" class="form-control" id="date" value="<?php echo date('Y-m-d'); ?>" placeholder="" readonly="readonly">
 							</div>
 							<div class="form-group">
-								<label for="">Method</label>
+								<label for="">Metode Pembayaran</label>
 								<select class="form-control" name="method" id="method">
-									<option value="cash">Cash</option>
+									<option value="cash">Tunai</option>
 									<option value="transfer">Transfer</option>
 								</select>
 							</div>
@@ -96,7 +96,7 @@ $api = $conn->query($sql2);
 								<label for="">Item</label>
 								
 								<select class="form-control myItem" name="item[]">
-									<option value="">-- Select Item --</option>
+									<option value="">-- Pilih Item --</option>
 									<?php
 									if ($result->num_rows > 0) {
 										// output data of each row
@@ -120,20 +120,20 @@ $api = $conn->query($sql2);
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="">Quantity</label>
-								<input type="text" step="0" min="0" class="form-control qtyItem" name="qty[]" placeholder="Quantity" onkeypress="return isNumberKey(event)">
+								<label for="">Jumlah</label>
+								<input type="text" step="0" min="0" class="form-control qtyItem" name="qty[]" placeholder="Jumlah" onkeypress="return isNumberKey(event)">
 							</div>
 							<div class="form-group">
-								<label for="" class="label_price">Price</label>
-								<input type="text" class="form-control price" placeholder="Price" readonly="readonly">
+								<label for="" class="label_price">Harga Per Item</label>
+								<input type="text" class="form-control price" placeholder="Harga" readonly="readonly">
 							</div>
 							<div class="form-group">
 								<label for="" class="label_discount">Discount (%)</label>
 								<input type="text" class="form-control discount" value="0" name="discount[]" placeholder="Discount" onkeypress="return isNumberKey(event)">
 							</div>
 							<div class="form-group">
-								<label for="">Total</label>
-								<input type="text" class="form-control total" placeholder="Total" readonly="readonly">
+								<label for="">Total Harga Per Item</label>
+								<input type="text" class="form-control total" placeholder="Total Harga Per Item" readonly="readonly">
 							</div>
 						</div>
 					</div>
@@ -156,16 +156,16 @@ $api = $conn->query($sql2);
 					<div class="col-md-4">
 						
 						<div class="form-group">
-							<label for="">Grand Total</label>
-							<input type="text" class="form-control" id="grandTotal" placeholder="Grand Total" readonly="readonly">
+							<label for="">Total Keseluruhan</label>
+							<input type="text" class="form-control" id="grandTotal" placeholder="Total Keseluruhan" readonly="readonly">
 						</div>
 						<div class="form-group">
-							<label for="">Payment</label>
-							<input type="text" class="form-control" name="payment" id="payment" placeholder="Payment" required="required">
+							<label for="">Pembayaran</label>
+							<input type="text" class="form-control" name="payment" id="payment" placeholder="Pembayaran" required="required">
 						</div>
 						<div class="form-group">
-							<label for="">Change</label>
-							<input type="text" class="form-control" id="change" placeholder="Change" readonly="readonly">
+							<label for="">Kembalian</label>
+							<input type="text" class="form-control" id="change" placeholder="Kembalian" readonly="readonly">
 						</div>
 						<div class="form-group">
 							<label for=""></label>
@@ -173,7 +173,7 @@ $api = $conn->query($sql2);
 						</div>
 						
 						<button type="button"class="btn btn-success" id="printItem">Print</button>
-						<button type="submit"class="btn btn-primary" id="printBtn">End Transaction</button>
+						<button type="submit"class="btn btn-primary" id="printBtn">Mengakhiri Transaksi</button>
 
 					</div>
 				</div>

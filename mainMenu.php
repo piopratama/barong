@@ -54,7 +54,7 @@ else
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
-					<a href="directPay.php"><button type="button" class="btn btn-default" id="directpayMenu">Direct Pay</button></a>
+					<a href="directPay.php"><button type="button" class="btn btn-default" id="directpayMenu">Transaksi</button></a>
 				</div>
 				<div class="col-md-4"></div>
 			</div>
@@ -75,7 +75,7 @@ else
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
-					<a href="dayReport.php"><button type="button" class="btn btn-default" id="undirectpayMenu">Day Report</button></a>
+					<a href="dayReport.php"><button type="button" class="btn btn-default" id="undirectpayMenu">Laporan Harian</button></a>
 				</div>
 				<div class="col-md-4"></div>
 			</div>

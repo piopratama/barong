@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-$title="Update Category";
+$title="Perbarui Kategori";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -76,7 +76,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM tb_kategori WHERE id=$id;");
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Catagory :</label>
+											      <label for="usr">Kategori :</label>
 											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="catagory" id="usr" value="<?php echo$d['nm_kategori'];?>">
 											    </div></td>
 											</tr>
@@ -84,7 +84,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM tb_kategori WHERE id=$id;");
 												
 												<td>	
 													<div class="form-group">
-														<label for="usr">Description :</label>
+														<label for="usr">Deskripsi :</label>
 														<input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="description" id="usr" value="<?php echo $d['description'];?>">
 													</div>
 												</td>
@@ -92,7 +92,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM tb_kategori WHERE id=$id;");
 
 											<tr>
 												<td>
-													<button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Submit</button>
+													<button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Selesai</button>
 												</td>
 											</tr>
 										
