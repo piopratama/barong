@@ -26,6 +26,12 @@
 	$grand_total=0;
 	$date=date('Y-m-d H:i:s');
 
+	$mode=0;
+	if(isset($_POST["mode"]))
+	{
+		$mode=1;
+	}
+
 	$new_transaction=0;
 	
 	if(count($item)>0)
@@ -141,5 +147,8 @@
 	}*/
 	
 	$conn->close();
-	header("location:directPay.php");
+	if($mode!=1)
+	{
+		header("location:directPay.php");
+	}
 ?>

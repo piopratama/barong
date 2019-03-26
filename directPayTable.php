@@ -314,7 +314,7 @@ $api = $conn->query($sql2);
 					$.ajax({
 						url: 'transactionProcess.php',
 						type: 'post',
-						data: {item:item, qty:qty, payment:payment, method: method, discount: discount},
+						data: {item:item, qty:qty, payment:payment, method: method, discount: discount, mode:1},
 						dataType: 'json',
 						async: false,
 						success: function (data) {
