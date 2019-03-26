@@ -1,6 +1,6 @@
 <?php
 session_start();
-$title="Day Report";
+$title="Laporan Harian";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -99,19 +99,19 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 
 					<div class="col-md-12" id="mytable">
 					<a href="mainMenu.php" style="margin-left: 5px; margin-bottom: 10px;" type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" ></a><br>
-					<h1> TABEL REPORT</h1>
+					<h1> TABEL LAPORAN TRANSAKSI</h1>
 					<table id="example" class="table table-bordered" style="width: 100%;">
 						<thead>
 							<tr>
 								<th>ID</th>
 								<th>Invoice</th>
-								<th>Name</th>
-								<th>Date</th>
-								<th>Employee</th>
+								<th>Nama</th>
+								<th>Tanggal</th>
+								<th>Pegawai</th>
 								<th>Item</th>
-								<th>QTY</th>
+								<th>Jumlah</th>
 								<th>DSC</th>
-								<th>Total Price</th>
+								<th>Total Harga</th>
 								<th>Status</th>
 							</tr>
 						</thead>
@@ -131,10 +131,10 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 								<td><?php echo rupiah($data["total_price"]);?></td>
 								<td><?php if($data["statuss"]==0)
 								{
-									echo("not paid");
+									echo("Belum Lunas");
 								}
 								else{
-									echo("paid");
+									echo("Lunas");
 								}
 								?></td>
 							</tr>
@@ -145,7 +145,7 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						<div class="col-md-9"></div>
 						<div class="col-md-3 ">
 							<div class="form-group fontsize">
-								<label for="">Paid Transaction Income</label>
+								<label for="">Pemasukan Transaksi Lunas</label>
 								<div class="form-control"
 								><?php echo "Rp.".rupiah($paidIncome); ?></div>
 							</div>
@@ -155,18 +155,18 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						<div class="col-md-9"></div>
 						<div class="col-md-3 ">
 							<div class="form-group fontsize">
-								<label for="">Unpaid Transaction Income</label>
+								<label for="">Pemasukan Transaksi Belum Lunas</label>
 								<div class="form-control"
 								><?php echo "Rp.".rupiah($deposit); ?></div>
 							</div>
 						</div>
 					</div>
-					<h1> TABEL REPORT CATEGORY</h1>
+					<h1> TABEL LAPORAN BERDASARKAN KATEGORI</h1>
 					<table id="example2" class="table table-bordered" style="width: 100%;">
 						<thead>
 							<tr>
-								<th>Category</th>
-								<th>Income</th>
+								<th>Kategori</th>
+								<th>Pemasukan</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -181,17 +181,18 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 							<?php $no++; }?>							
 						</tbody>
 					</table>
-					<h1> TABEL REPORT METHOD</h1>
+					<h1> TABEL LAPORAN BERDASARKAN METODE PEMBAYARAN </h1>
 					<table id="example3" class="table table-bordered" style="width: 100%;">
 						<thead>
 							<tr>
-								<th>Method</th>
-								<th>Income</th>
+								<th>Metode Pembayaran</th>
+								<th>Pemasukan</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php 
 							$no=1;
+							$total_income=0;
 							foreach ($method as $j) {?>
 							<tr>
 								<td><?php echo $j["method"];?></td>
@@ -206,15 +207,15 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 				<div class="col-md-8"></div>
 				<div class="col-md-4">
 					<div class="form-group fontsize">
-						<label for="">Category (Category doesn't include deposit)</label>
+						<label for="">Pemasukan Lunas (Tidak termasuk DP)</label>
 						<div class="form-control"><?php echo "Rp.".rupiah($total_no_deposit); ?></div>
 					</div>
 					<div class="form-group fontsize">
-						<label for="">Deposit</label>
+						<label for="">DP</label>
 						<div class="form-control"><?php echo "Rp.".rupiah($deposit); ?></div>
 					</div>
 					<div class="form-group fontsize">
-						<label for="">Total Income</label>
+						<label for="">Total Pemasukan</label>
 						<div class="border border-primary form-control"><?php echo "Rp.".rupiah($total_no_deposit+$deposit); ?></div>
 					</div>
 					<a href="export_excel.php" type="button" class="btn btn-success" >Print</a><br>

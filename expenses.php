@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$title="Expense";
+$title="Biaya Operasional";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -52,22 +52,22 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
             <div class="row">
                 <div class="col-md-12" id="mytable">
                 <table id="example" class="table table-bordered" style="width: 100%;">
-                    <h1>EXPENSES</h1>
+                    <h1>Biaya Operasional</h1>
                     
                     <a href="administrator.php" style="margin:0 5px 10px 0" type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" ></a>
                     <button class="btn btn-success glyphicon glyphicon-plus" style="margin-bottom:10px" data-toggle="modal" data-target="#exampleModal"></button>
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Date Insert</th>
-                            <th>Date</th>
-                            <th>Category</th>
+                            <th>Tanggal Input</th>
+                            <th>Tanggal Pembelanjaan</th>
+                            <th>Kategori</th>
                             <th>Item</th>
-                            <th>Buyer</th>
-                            <th>Qty</th>
-                            <th>Price</th>
+                            <th>Pembeli</th>
+                            <th>Jumlah</th>
+                            <th>Harga</th>
                             <th>Total</th>
-                            <th>Action</th>
+                            <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,20 +105,20 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                 <form action="insertExpense.php" method="POST">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Expense</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Biaya Operasional</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>Date* :</label>
-                                <input type="date" name="date_buy" class="form-control" placeholder="Date Buy" require="required">
+                                <label>Tanggal* :</label>
+                                <input type="date" name="date_buy" class="form-control" placeholder="Tanggal Pembelian" require="required">
                             </div>
                             <div class="form-group">
-                                <label>Buyer* :</label>
+                                <label>Pembeli* :</label>
                                 <select class="form-control" name="buyer" require="required">
-                                    <option>-- Select Buyer --</option>
+                                    <option>-- Pilih Pembeli --</option>
                                     <?php
                                     foreach($employee as $emp)
                                     {
@@ -130,9 +130,9 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Category* :</label>
+                                <label>Kategori* :</label>
                                 <select class="form-control" name="category" require="required">
-                                    <option>-- Select Category --</option>
+                                    <option>-- Pilih Ketegori --</option>
                                     <?php
                                     foreach($category as $emp)
                                     {
@@ -148,13 +148,13 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                                 <input type="text" name="item" class="form-control" placeholder="Item" require="required">
                             </div>
                             <div class="form-group">
-                                <label>Qty* :</label>
-                                <input type="text" name="qty" class="form-control" placeholder="Quantity"  require="required" onkeypress="return isNumberKey(event)">
+                                <label>Jumlah* :</label>
+                                <input type="text" name="qty" class="form-control" placeholder="Jumlah"  require="required" onkeypress="return isNumberKey(event)">
                             </div>
                             <div class="form-group">
-                                <label>Unit :</label>
+                                <label>Satuan :</label>
                                 <select class="form-control" name="unit">
-                                    <option>-- Select Unit --</option>
+                                    <option>-- Pilih Satuan --</option>
                                     <option value="kg">kg</option>
                                     <option value="gr">gr</option>
                                     <option value="pcs">pcs</option>
@@ -163,8 +163,8 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Price* :</label>
-                                <input type="text" name="price" class="form-control" placeholder="Price"  require="required" onkeypress="return isNumberKey(event)">
+                                <label>Harga* :</label>
+                                <input type="text" name="Harga" class="form-control" placeholder="Price"  require="required" onkeypress="return isNumberKey(event)">
                             </div>
                             <div class="form-group">
                                 <label>Total* :</label>
@@ -173,7 +173,7 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                            
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             <input type="submit" class="btn btn-primary" value="Save Changes">
                         </div>
                     </div>
@@ -186,7 +186,7 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">Delete Expense</h5>
+                        <h5 class="modal-title" id="exampleModalLabel2">Hapus</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -195,11 +195,11 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                         <div class="form-group">
                             <input type="hidden" name="id_delete" id="id_delete" class="form-control" placeholder="id" require="required">
                         </div>
-                        <p>Are you sure want to delete this data ?</p>
+                        <p>Apakah Anda Yakin Menghapus Data ini ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Hapus</button>
                     </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-$title="Supplier";
+$title="Suplaiyer";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -56,27 +56,25 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier");
             </div>
         </div>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12" id="mytable">
                 <table id="example" class="table table-bordered" style="width: 100%;">
-                    <h1>SUPPLIER</h1>
+                    <h1>SUPLAIYER</h1>
                     
                     <a href="administrator.php" style="margin:0 5px 10px 0" type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" ></a>
                     <button class="btn btn-success glyphicon glyphicon-plus" style="margin-bottom:10px" data-toggle="modal" data-target="#exampleModal"></button>
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Supplier</th>
-                            <th>Address</th>
-                            <th>Phone</th>
-                            <th>Action</th>
+                            <th>Suplaiyer</th>
+                            <th>Alamat</th>
+                            <th>Tlp</th>
+                            <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
-                        if(count($supplier)>0)
-                        {
                             $no=1;
                             foreach ($supplier as $data) {?>
                             <tr>
@@ -92,7 +90,6 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier");
                             <?php 
                             $no++; 
                             }
-                        }
                         ?>							
                     </tbody>
                 </table>
@@ -105,27 +102,27 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier");
                 <form action="insertSupplier.php" method="POST">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Supplier</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Suplaiyer</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>Supplier</label>
+                                <label>Suplaiyer* :</label>
                                 <input type="text" name="supplier" class="form-control" placeholder="Supplier" require="required">
                             </div>
                             <div class="form-group">
-                                <label>Address</label>
+                                <label>Alamat* :</label>
                                 <input type="text" name="address" class="form-control" placeholder="Address" require="required">
                             </div>
                             <div class="form-group">
-                                <label>Phone</label>
+                                <label>Tlp* :</label>
                                 <input type="text" name="phone" class="form-control" placeholder="Phone" require="required">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             <input type="submit" class="btn btn-primary" value="Save Changes">
                         </div>
                     </div>
@@ -138,7 +135,7 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier");
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">Delete Supplier</h5>
+                        <h5 class="modal-title" id="exampleModalLabel2">Hapus Suplaiyer</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -147,11 +144,11 @@ $supplier = mysqli_query($conn, "SELECT * FROM tb_supplier");
                         <div class="form-group">
                             <input type="hidden" name="id_delete" id="id_delete" class="form-control" placeholder="id" require="required">
                         </div>
-                        <p>Are you sure want to delete this data ?</p>
+                        <p>Apakah Anda Yakin Menghapus Data Ini ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Hapus</button>
                     </div>
                     </div>
                 </div>

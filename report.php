@@ -1,6 +1,6 @@
 <?php
 session_start();
-$title="Report";
+$title="Laporan";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -113,17 +113,17 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 					<div class="col-md-12" id="mytable">
 					<a href="administrator.php" style="margin-left: 5px; margin-bottom: 10px;" type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" ></a><br>
 					<div style="border-bottom:1px solid #bcbaba; margin-bottom:10px; background-color:#b5b2ac; padding:0 0 0 10px">
-						Start: <input style="margin:10px; " type="date" name="dateStart" id="date_start">
-						Until: <input style="margin:10px;" type="date" name="dateStop" id="date_end">
+						Dari: <input style="margin:10px; " type="date" name="dateStart" id="date_start">
+						Sampai: <input style="margin:10px;" type="date" name="dateStop" id="date_end">
 						Status:
 						<select name="status" id="status">
-							<option value="">Select Status</option>
+							<option value="">Pilih Status</option>
 							<option value="1">Paid</option>
 							<option value="0">Unpaid</option>
 						</select>
-						Debt Customer:
+						Tunggakan Pelanggan:
 						<select name="debt" id="debt">
-							<option value="">--Select Dept Customer--</option>
+							<option value="">--Pilih Nama Pelanggan--</option>
 							<?php 
 							foreach ($debtCustomerOption as $dc){
 							?>
@@ -133,19 +133,19 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						<button type="submit" class="btn btn-success" style="margin-left:10px;">Print</button>
 					</div>
 					<div id ="table">
-						<h1> TABEL REPORT</h1>
+						<h1> TABEL LAPORAN</h1>
 						<table id="example" class="table table-bordered" style="width: 100%;">
 							<thead>
 								<tr>
 									<th>ID</th>
 									<th>Invoice</th>
-									<th>Name</th>
-									<th>Date</th>
-									<th>Employee</th>
+									<th>Nama</th>
+									<th>Tanggal</th>
+									<th>Pegawai</th>
 									<th>Item</th>
-									<th>QTY</th>
+									<th>Jumlah</th>
 									<th>DSC</th>
-									<th>Total Price</th>
+									<th>Harga Total</th>
 									<th>Status</th>
 								</tr>
 							</thead>
@@ -165,10 +165,10 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 									<td><?php echo rupiah($data["total_price"]);?></td>
 									<td><?php if($data["statuss"]==0)
 									{
-										echo("not paid");
+										echo("Belum Lunas");
 									}
 									else{
-										echo("paid");
+										echo("Lunas");
 									}
 									?></td>
 								</tr>
@@ -177,15 +177,15 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						</table><br>
 					</div>
 					<div id="table2">
-						<h1> TABEL REPORT CATEGORY</h1>
-						<h3>Only Paid Transaction (Does't Include Deposit)</h3>
+						<h1> TABEL LAPORAN KATEGORI</h1>
+						<h3>Hanya Transaksi yang Lunas (Tidak Termasuk DP)</h3>
 						<table id="example2" class="table table-bordered" style="width: 100%;">
 							<thead>
 								<tr>
-									<th>Category</th>
-									<th>Purchase Price</th>
-									<th>Income</th>
-									<th>Profit</th>
+									<th>Ketgori</th>
+									<th>Harga PEmbelian</th>
+									<th>Pemasukan</th>
+									<th>Keuntungan</th>
 									
 								</tr>
 							</thead>
@@ -205,13 +205,13 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						</table><br>
 					</div>
 					<div id="table3">
-						<h1 > TABEL REPORT METHOD</h1>
-						<h3>Finished Transaction Include Deposit Unfinished Transaction</h3>
+						<h1 > TABEL LAPORAN MEDOTE PEMBAYARAN</h1>
+						<h3>Transaksi yang Selesai Termasuk DP </h3>
 						<table id="example3" class="table table-bordered" style="width: 100%;">
 							<thead>
 								<tr>
-									<th>Method</th>
-									<th>Income</th>
+									<th>Metode</th>
+									<th>Pemasukan</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -227,13 +227,13 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						</table>
 					</div>
 					<div id="table4">
-						<h1> TABEL REPORT CUSTOMER</h1>
-						<h3>Only Finished Transaction</h3>
+						<h1> TABEL LAPORAN PELANGGAN</h1>
+						<h3>Hanya Transaksi yang Selesai</h3>
 						<table id="example4" class="table table-bordered" style="width: 100%;">
 							<thead>
 								<tr>
-									<th>Customer</th>
-									<th>Income</th>
+									<th>Pelanggan</th>
+									<th>Pemasukan</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -249,15 +249,15 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 						</table><br>
 					</div>
 					<div id="table5">
-						<h1> TABEL DEBT CUSTOMER</h1>
-						<h5> Only Unfinished Transaction</h5>
+						<h1> TABEL HUTANG PELANGGAN</h1>
+						<h5>Hanya Transaksi yang Belum Selesai</h5>
 						<table id="example5" class="table table-bordered" style="width: 100%;">
 						<thead>
 								<tr>
-									<th>Customer Name</th>
-									<th>Total Income</th>
-									<th>Deposit</th>
-									<th>Debt</th>
+									<th>Nama Pelanggan</th>
+									<th>Total Pemasukan</th>
+									<th>DP</th>
+									<th>Sisa Hutang</th>
 									
 								</tr>
 							</thead>
@@ -291,15 +291,15 @@ $user = mysqli_query($conn, "SELECT * FROM tb_employee");
 				<div class="col-md-8"></div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="">Category (Category doesn't include deposit)</label>
+						<label for="">Pemasukan (Tidak Termasuk DP)</label>
 						<div class="form-control" id="categoryIncome"><?php echo "Rp.".rupiah($total_no_deposit); ?></div>
 					</div>
 					<div class="form-group">
-						<label for="">Deposit</label>
+						<label for="">DP</label>
 						<div class="form-control" id="depositIncome"><?php echo "Rp.".rupiah($deposit); ?></div>
 					</div>
 					<div class="form-group">
-						<label for="">Total Income</label>
+						<label for="">Total Pemasukan</label>
 						<input type="text" class="form-control" readonly="readonly" id="totalIncome" value="<?php echo "Rp.".rupiah($total_no_deposit+$deposit); ?>">
 					</div>
 				</div>

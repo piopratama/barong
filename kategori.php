@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-$title="Category";
+$title="Kategori";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -60,23 +60,21 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
             <div class="row">
                 <div class="col-md-12" id="mytable">
                 <table id="example" class="table table-bordered" style="width: 100%;">
-                    <h1>CATEGORY</h1>
+                    <h1>KATEGORI</h1>
                     
                     <a href="administrator.php" style="margin:0 5px 10px 0" type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" ></a>
                     <button class="btn btn-success glyphicon glyphicon-plus" style="margin-bottom:10px" data-toggle="modal" data-target="#exampleModal"></button>
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Date Insert</th>
-                            <th>Category</th>
-                            <th>Description</th>
-                            <th>Action</th>
+                            <th>Tanggal Input</th>
+                            <th>Kategori</th>
+                            <th>Deskripsi</th>
+                            <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
-                        if(count($category)>0)
-                        {
                             $no=1;
                             foreach ($category as $data) {?>
                             <tr>
@@ -92,7 +90,6 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                             <?php 
                             $no++; 
                             }
-                        }
                         ?>							
                     </tbody>
                 </table>
@@ -105,23 +102,23 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                 <form action="insertCategory.php" method="POST">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label>Category</label>
+                                <label>Kategori</label>
                                 <input type="text" name="category" class="form-control" placeholder="Category" require="required">
                             </div>
                             <div class="form-group">
-                                <label>Description</label>
+                                <label>Deskripsi</label>
                                 <textarea name="description" row="3" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             <input type="submit" class="btn btn-primary" value="Save Changes">
                         </div>
                     </div>
@@ -134,7 +131,7 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">Delete Category</h5>
+                        <h5 class="modal-title" id="exampleModalLabel2">Hapus Kategori</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -143,11 +140,11 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
                         <div class="form-group">
                             <input type="hidden" name="id_delete" id="id_delete" class="form-control" placeholder="id" require="required">
                         </div>
-                        <p>Are you sure want to delete this data ?</p>
+                        <p>Apakah Anda Yakin Menghapus Data Ini ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Hapus</button>
                     </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$title="User Menu";
+$title="Menu Pengguna";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -80,20 +80,20 @@ $user = mysqli_query($conn, "SELECT id, nama, address, sallary, tlp, username, p
 					
 					
 						<table id="example" class="table table-bordered" style="width: 100%">
-							<h1>USER</h1>
+							<h1>Pengguna</h1>
 						
 						<a type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" href="administrator.php" style="margin:0 5px 10px 0"></a>
 						<a type="button" class="btn btn-primary glyphicon glyphicon-plus" href="add_user.php" style="margin: 0 0 10px 0"></a>
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Name</th>
-									<th>Address</th>
-									<th>Sallary</th>
-									<th>tlpn</th>
+									<th>Nama</th>
+									<th>Alamat</th>
+									<th>Gaji</th>
+									<th>tlp</th>
 									<th>Username</th>
 									<th>Password</th>
-									<th>Action</th>
+									<th>Tindakan</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -126,7 +126,7 @@ $user = mysqli_query($conn, "SELECT id, nama, address, sallary, tlp, username, p
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">Delete User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel2">Hapus Pengguna</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -135,11 +135,11 @@ $user = mysqli_query($conn, "SELECT id, nama, address, sallary, tlp, username, p
                         <div class="form-group">
                             <input type="hidden" name="id_delete" id="id_delete" class="form-control" placeholder="id" require="required">
                         </div>
-                        <p>Are you sure want to delete this data ?</p>
+                        <p>Apakah Anda Yakin Menghapus Pengguna Ini ?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Hapus</button>
                     </div>
                     </div>
                 </div>

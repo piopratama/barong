@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-$title="Update Expense";
+$title="Perbarui Biaya Operasional";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -76,10 +76,10 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											<tr>
 												<td>	
 													<div class="form-group">
-													<label for="usr">Buyer* :</label>
+													<label for="usr">Pembeli* :</label>
 													<input type="hidden" class="form-control" name="id" value="<?php echo $d['id'];?>">
 													<select  name="buyer" class="form-control" require="required">
-															<option>-- Select Buyer --</option>
+															<option>-- Pilih Pembeli --</option>
 															<?php
 															foreach($employee as $emp)
 															{
@@ -95,10 +95,10 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											<tr>
 												<td>	
 													<div class="form-group">
-													<label for="usr">Category* :</label>
+													<label for="usr">Kategori* :</label>
 													<input type="hidden" class="form-control" name="id" value="<?php echo $d['id'];?>">
 													<select  name="category" class="form-control">
-															<option>-- Select Category --</option>
+															<option>-- Pilih Kategori --</option>
 															<?php
 															foreach($category as $emp)
 															{
@@ -114,7 +114,7 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Date* :</label>
+											      <label for="usr">Tanggal* :</label>
 											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="date" id="usr" value="<?php echo$d['date'];?>" required="required">
 											    </div></td>
 											</tr>
@@ -128,17 +128,17 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											<tr>
 												
 												<td>	<div class="form-group">
-											      <label for="usr">Quantity* :</label>
+											      <label for="usr">Jumlah* :</label>
 											      <input type="text" style="width: 200%; margin-bottom: 5px;" class="form-control" name="qty" id="usr" value="<?php echo $d['qty'];?>" require="required" onkeypress="return isNumberKey(event)" >
 											    </div></td>
 											</tr>
 											<tr>
 												
-												<td><label for="usr">Unit :</label>
+												<td><label for="usr">Satuan :</label>
 													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="unit" id="usr" value="<?php echo $d['unit'];?>"></td>
 											</tr>
 											<tr>
-												<td><label for="usr">Price* :</label>
+												<td><label for="usr">Harga* :</label>
 													<input type="text" style="width: 200%; margin-bottom: 10px;" class="form-control" name="price" id="usr" value="<?php echo $d['price'];?>" required="required" onkeypress="return isNumberKey(event)"></td>
 											</tr>
 											<tr>
@@ -148,7 +148,7 @@ $category = mysqli_query($conn, "SELECT * FROM tb_kategori");
 											
 
 											<tr>
-												<td><button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Submit</button></td>
+												<td><button type="submit" class="btn btn-success" id="add_item_btn" name=Submit>Selesai</button></td>
 												
 											</tr>
 										

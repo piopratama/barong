@@ -3,7 +3,7 @@
 <?php
 session_start();
 
-$title="Update Stock";
+$title="Perbarui API";
 
 if(empty($_SESSION['username'])){
 	header("location:index.php");
@@ -62,7 +62,7 @@ $result = $conn->query($sql);
 
 					
 					<div class="col-md-4 sidebar">
-						<a type="button" class="btn btn-danger glyphicon glyphicon-arrow-left"  href="stock.php"></a>
+						<a type="button" class="btn btn-danger glyphicon glyphicon-arrow-left"  href="api.php"></a>
 					</div>
 					
 					<div class="col-md-8 articles">
@@ -83,7 +83,7 @@ $result = $conn->query($sql);
 										</tr>
 										<tr>												
 											<td>	<div class="form-group">
-										      <label for="usr">Name* :</label>
+										      <label for="usr">Nama* :</label>
 										      <input type="hidden" name="id" value="<?php echo $d['id']?>">
 										      <input type="text" style="width: 200%;" class="form-control" name="name" id="name" value="<?php echo $d['name'];?>" required="required">
 										    </div></td>
@@ -96,19 +96,19 @@ $result = $conn->query($sql);
 										</tr>
                                         <tr>
 											<td>	<div class="form-group">
-										      <label for="usr">Address* :</label>
+										      <label for="usr">Alamat* :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="address" id="address" value="<?php echo $d['address'];?>"  required="required">
 										    </div></td>
 										</tr>
                                         <tr>
 											<td>	<div class="form-group">
-										      <label for="usr">Address2 :</label>
+										      <label for="usr">Alamat2 :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="address2" id="address2" value="<?php echo $d['address2'];?>">
 										    </div></td>
 										</tr>
                                         <tr>
 											<td>	<div class="form-group">
-										      <label for="usr">Phone :</label>
+										      <label for="usr">Tlp :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="phone" id="phone" value="<?php echo $d['phone'];?>" >
 										    </div></td>
 										</tr>
@@ -119,7 +119,7 @@ $result = $conn->query($sql);
 										    </div></td>
 										</tr>
 										<tr>
-											<td><button type="submit" class="btn btn-success" id="add_item_btn" style="margin-top: 10px;" name=Submit>Update</button></td>
+											<td><button type="submit" class="btn btn-success" id="add_item_btn" style="margin-top: 10px;" name=Submit>Perbarui</button></td>
 											
 										</tr>
 										

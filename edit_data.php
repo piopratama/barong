@@ -101,9 +101,9 @@ $result4 = $conn->query($supplier2);
 										<tr>
 											<td>
 											<div class="form-group">
-										      <label>Category* :</label>
+										      <label>Kategori* :</label>
 										      <select class="form-control myItem2" name="category" style="width: 200%;" required="required">
-													<option value="">-- Select Category --</option>
+													<option value="">-- Pilih Kategori --</option>
 													<?php
 														if ($result->num_rows > 0) {
 														// output data of each row
@@ -136,7 +136,7 @@ $result4 = $conn->query($supplier2);
 										</tr>
 										<tr>												
 											<td>	<div class="form-group">
-										      <label for="usr">Name* :</label>
+										      <label for="usr">Nama Pegawai* :</label>
 										      <input type="hidden" name="id" value="<?php echo $d['id']?>">
 										      <input type="text" style="width: 200%;" class="form-control" name="name" id="usr" value="<?php echo $d['item'];?>" required="required">
 										    </div></td>
@@ -144,28 +144,28 @@ $result4 = $conn->query($supplier2);
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Price* :</label>
+										      <label for="usr">Harga* :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="price" id="rupiah" value="<?php echo $d['price'];?>"  required="required" onkeypress="return isNumberKey(event)">
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Stock (Current Stock + New Stock)* :</label>
+										      <label for="usr">Stok* :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="stock" id="usr" value="<?php echo $d['stock'];?>" required="required" onkeypress="return isNumberKey(event)">
 										    </div></td>
 										</tr>
 										<tr>
 											
 											<td>	<div class="form-group">
-										      <label for="usr">Unit* :</label>
+										      <label for="usr">Satuan* :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="unit" id="usr" value="<?php echo $d['unit'];?>" required="required">
 										    </div></td>
 										</tr>
 										<tr>
 										<tr>
 											<td>	<div class="form-group">
-										      <label for="usr">Purchase Price* :</label>
+										      <label for="usr">Harga Pembelian* :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="purchase_price" id="rupiah" value="<?php echo $d['pur_price'];?>" required="required" onkeypress="return isNumberKey(event)">
 										    </div></td>
 										</tr>	
@@ -173,7 +173,7 @@ $result4 = $conn->query($supplier2);
 											<div class="form-group">
 										      <label>Supplier :</label>
 										      <select class="form-control myItem2" name="supplier" style="width: 200%;">
-													<option value="">-- Select Supplier --</option>
+													<option value="">-- Pilih Suplaiyer --</option>
 													<?php
 														if ($result->num_rows > 0) {
 														// output data of each row
@@ -199,7 +199,7 @@ $result4 = $conn->query($supplier2);
 										</td>
 										</tr>
 										<tr>
-											<td><button type="submit" class="btn btn-success" id="add_item_btn" style="margin-top: 10px;" name=Submit>Update</button></td>
+											<td><button type="submit" class="btn btn-success" id="add_item_btn" style="margin-top: 10px;" name=Submit>Selesai</button></td>
 											
 										</tr>
 										

@@ -120,7 +120,7 @@
 			if($check==0)
 			{	
 				$_SESSION["invoice"]=$invoice;
-				$_SESSION["message"]="Insert Successfully";
+				$_SESSION["message"]="Transaksi Berhasil";
 			}
 			else
 			{
