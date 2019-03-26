@@ -54,11 +54,7 @@ else
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
-<<<<<<< HEAD
-					<a href="directPayTable.php"><button type="button" class="btn btn-default" id="directpayMenu">Direct Pay</button></a>
-=======
 					<a href="directPay.php"><button type="button" class="btn btn-default" id="directpayMenu">Transaksi</button></a>
->>>>>>> b42e5b08aaa38bea2e0c8dd5115fa60b499bab8e
 				</div>
 				<div class="col-md-4"></div>
 			</div>
