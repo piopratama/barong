@@ -318,7 +318,8 @@ $api = $conn->query($sql2);
 						dataType: 'json',
 						async: false,
 						success: function (data) {
-							location.reload();
+							console.log(data);
+							//location.reload();
 						}
 					});
 				}

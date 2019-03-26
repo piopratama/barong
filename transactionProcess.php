@@ -141,5 +141,6 @@
 	}*/
 	
 	$conn->close();
-	header("location:directPay.php");
+	echo json_encode($invoice);
+	//header("location:directPay.php");
 ?>
