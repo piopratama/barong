@@ -121,7 +121,7 @@ $result2 = $conn->query($supplier);
 										<tr>
 											<td>
 												<div class="form-group">
-										      <label for="usr">Nama Pegawai* :</label>
+										      <label for="usr">Nama Item* :</label>
 										      <input type="text" style="width: 200%;" class="form-control" name="name" id="usr" required="required">
 												</div>
 											</td>

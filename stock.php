@@ -146,7 +146,7 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 						<thead>
 							<tr>
 								<th>Tanggal</th>
-								<th>Item</th>
+								<th>Nama Item</th>
 								<th>Stok</th>
 								<th>Satuan</th>
 								<th>Suplaiyer</th>

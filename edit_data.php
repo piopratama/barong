@@ -136,7 +136,7 @@ $result4 = $conn->query($supplier2);
 										</tr>
 										<tr>												
 											<td>	<div class="form-group">
-										      <label for="usr">Nama Pegawai* :</label>
+										      <label for="usr">Nama Item* :</label>
 										      <input type="hidden" name="id" value="<?php echo $d['id']?>">
 										      <input type="text" style="width: 200%;" class="form-control" name="name" id="usr" value="<?php echo $d['item'];?>" required="required">
 										    </div></td>
