@@ -420,6 +420,7 @@ $api = $conn->query($sql2);
 				$("#printBtn").click(function(event) {
 					var mydate = formatDate(new Date($("#date").val()));
 					//console.log(mydate);
+					//console.log(myDataTable);
 					var grandTotalCheck=$("#grandTotal").val();
 					if(grandTotalCheck!="" && grandTotalCheck!="0")
 					{
