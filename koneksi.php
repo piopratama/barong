@@ -6,7 +6,7 @@
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
-	$dbname = "deli_shop";
+	$dbname = "barong";
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);

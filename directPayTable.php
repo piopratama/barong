@@ -267,7 +267,7 @@ $api = $conn->query($sql2);
 					var grand_total=0;
 					for(var i=0;i<myDataTable.length;i++)
 					{
-						grand_total=grand_total+myDataTable[i].total_price;
+						grand_total=grand_total+(myDataTable[i].price*myDataTable[i].qty-myDataTable[i].price*myDataTable[i].qty*myDataTable[i].discount/100.0);
 					}
 
 					if($("#method").val().trim()=='transfer')
@@ -318,8 +318,7 @@ $api = $conn->query($sql2);
 						dataType: 'json',
 						async: false,
 						success: function (data) {
-							console.log(data);
-							//location.reload();
+							location.reload();
 						}
 					});
 				}
@@ -358,9 +357,26 @@ $api = $conn->query($sql2);
 					if(id!=null && id!="")
 					{
 						var data=getItemDetailById(id, qty, discount);
-						myDataTable.push(data[0]);
-						myDataTableTemp=myDataTable;
-						createHTMLTransactionTable();
+						var dataExist=false;
+						if(data!=null)
+						{
+							for(var i=0;i<myDataTable.length;i++)
+							{
+								if(data[0].id_item==myDataTable[i].id_item)
+								{
+									myDataTable[i].qty=parseFloat(myDataTable[i].qty)+parseFloat(qty);
+									myDataTable[i].total_price=parseFloat(myDataTable[i].price)*parseFloat(myDataTable[i].qty)-parseFloat(myDataTable[i].price)*parseFloat(myDataTable[i].qty)*parseFloat(myDataTable[i].discount)/100.0;
+									dataExist=true;
+									break;
+								}
+							}
+							if(!dataExist)
+							{
+								myDataTable.push(data[0]);
+								myDataTableTemp=myDataTable;
+							}
+							createHTMLTransactionTable();
+						}
 					}
 					$("#addItem").text("Add");
 				});
@@ -373,8 +389,14 @@ $api = $conn->query($sql2);
 				});
 
 				$("#table_body").on("click",".myItemEdit",function(){
+					var id_temp=$(this).parent().attr('id');
+
 					$("#addItem").text("Update");
 					myDataTableTemp=myDataTable;
+
+					$("#myItem").val(myDataTableTemp[id_temp].id_item);
+					$("#myItem").change();
+					$("#myQty").val(myDataTableTemp[id_temp].qty);
 
 					var id_temp=$(this).parent().attr("id");
 					myDataTable.splice(id_temp, 1);
@@ -420,7 +442,6 @@ $api = $conn->query($sql2);
 				$("#printBtn").click(function(event) {
 					var mydate = formatDate(new Date($("#date").val()));
 					//console.log(mydate);
-					//console.log(myDataTable);
 					var grandTotalCheck=$("#grandTotal").val();
 					if(grandTotalCheck!="" && grandTotalCheck!="0")
 					{
@@ -476,6 +497,37 @@ $api = $conn->query($sql2);
 				$("#endTransactionBtn").click(function(){
 					saveTransaction();
 				});
+
+				$(document).scannerDetection({
+					timeBeforeScanTest: 200, // wait for the next character for upto 200ms
+					startChar: [120], // Prefix character for the cabled scanner (OPL6845R)
+					endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
+					avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
+					//ignoreIfFocusOn: 'input',
+					onComplete: function(barcode, qty){
+						getItemScanner(barcode);
+					} // main callback function	
+				});
+
+				function getItemScanner(barcode)
+				{
+					$.ajax({
+						url: 'getItemByBarcode.php',
+						type: 'post',
+						data: {barcode:barcode},
+						dataType: 'json',
+						success: function (data) {
+							if(data!="")
+							{
+								var gotData=false;
+								$("#myItem").val(data);
+								$("#myItem").change();
+								$("#myQty").val(1);
+								$("#addItem").click();
+							}
+						}
+					});
+				}
 			});
 		</script>
 	</body>
