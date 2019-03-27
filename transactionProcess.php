@@ -26,6 +26,12 @@
 	$grand_total=0;
 	$date=date('Y-m-d H:i:s');
 
+	$mode=0;
+	if(isset($_POST["mode"]))
+	{
+		$mode=1;
+	}
+
 	$new_transaction=0;
 	
 	if(count($item)>0)
@@ -141,6 +147,13 @@
 	}*/
 	
 	$conn->close();
+<<<<<<< HEAD
 	echo json_encode($invoice);
 	//header("location:directPay.php");
+=======
+	if($mode!=1)
+	{
+		header("location:directPay.php");
+	}
+>>>>>>> 27245f03c3023a44034197afa3d1d799004dfc67
 ?>
