@@ -22,6 +22,9 @@ $result = $conn->query($sql);
 
 $sql2 = "SELECT * FROM tb_api";
 $api = $conn->query($sql2);
+
+$sql = "SELECT invoice, nm_transaksi FROM tb_transaksi where statuss='0' group by invoice;";
+$historyInvoice = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,6 +69,32 @@ $api = $conn->query($sql2);
 							<input type="date" class="form-control" id="date" value="<?php echo date('Y-m-d'); ?>" placeholder="" readonly="readonly">
 						</div>
 						<hr>
+                        <div class="form-group">
+                            <label for="">Pilih Nama</label>
+                            <select class="form-control"  id="invoice" name="invoice" theme="google">
+								<option value="">-- Select Nama --</option>
+								<?php
+								if ($historyInvoice->num_rows > 0) {
+									// output data of each row
+									while($row = $historyInvoice->fetch_assoc()) {
+								?>
+								    <option value="<?php echo $row['invoice'] ?>"><?php echo $row['nm_transaksi']; ?></option>
+								<?php
+									}
+								}
+								$conn->close();
+								?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Nama Baru</label>
+							<input type="text" class="form-control" id="name" placeholder="name" name="name">
+						</div>
+                        <div style="text-align:center;">
+							<button type="button" id="historyBtn" class="btn btn-primary pull-right" style="width:150px;">History</button>
+						</div>
+                        <div class="clear" style="clear:both;"></div>
+                        <hr>
 						<div class="form-group">
 							<label for="">Item</label>
 							
@@ -109,7 +138,7 @@ $api = $conn->query($sql2);
 					<hr>
 					<div>
 						<div class="form-group">
-							<label for="">Total Bayar</label>
+							<label for="" id="grand_total_label">Total Bayar</label>
 							<input type="text" class="form-control" id="grandTotal" placeholder="Grand Total" readonly="readonly">
 						</div>
 						<div class="form-group">
@@ -120,12 +149,8 @@ $api = $conn->query($sql2);
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="">Pembayaran</label>
-							<input type="text" class="form-control" name="payment" id="payment" placeholder="Payment" required="required">
-						</div>
-						<div class="form-group">
-							<label for="">Kembalian</label>
-							<input type="text" class="form-control" id="change" placeholder="Change" readonly="readonly">
+                            <label for="">Deposit</label>
+							<input type="text" class="form-control" name="payment" id="payment" placeholder="Deposit" required="required">
 						</div>
 						
 						<div style="text-align:center;">
@@ -136,7 +161,7 @@ $api = $conn->query($sql2);
 					<hr>
 				</div>
 				<div class="col-md-9">
-					<div style="height: 850px !important;overflow: scroll;">
+					<div style="height: 950px !important;overflow: scroll;">
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -210,6 +235,25 @@ $api = $conn->query($sql2);
 				</div>
 				</div>
 			</div>
+        </div>
+
+        <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel2">History</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="historyModalBody">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+				</div>
+			</div>
         </div>					
 		
 		<?php 
@@ -247,12 +291,12 @@ $api = $conn->query($sql2);
 				var address2 = '<?php echo $address2;?>';
 				var phone = '<?php echo $phone;?>';
 				var email = '<?php echo $email;?>';
-				var manyItem=1;
+                var manyItem=1;
+                var deposit=0;
 
 				$("#printBtn").attr('disabled', 'disabled');
-				$("#endTransactionBtn").attr('disabled', 'disabled');
-				$("#cancelBtn").hide();
-
+                $("#endTransactionBtn").attr('disabled', 'disabled');
+                $('#invoice').select2();
                 $("#myItem").select2();
 
 				if(message!="")
@@ -274,12 +318,11 @@ $api = $conn->query($sql2);
 
 					if($("#method").val().trim()=='transfer')
 					{
-						$("#change").val(0);
 						$("#payment").val(grand_total);
 						$("#printBtn").removeAttr('disabled');
 						$("#endTransactionBtn").removeAttr('disabled');
-					}
-					else if(grand_total>0)
+                    }
+                    else if(grand_total>0)
 					{
 						$("#printBtn").removeAttr('disabled');
 						$("#endTransactionBtn").removeAttr('disabled');
@@ -290,7 +333,50 @@ $api = $conn->query($sql2);
 						$("#endTransactionBtn").attr('disabled', 'disabled');
                     }
 					return grand_total;
-				}
+                }
+                
+                function getDespositHistory()
+                {
+                    var invoice=$("#invoice").val();
+					var name=$("#invoice :selected").text();
+					if(invoice==null || invoice=="")
+					{
+						$("#name").attr('readonly', false);
+                    }
+                    else
+                    {
+                        $.ajax({
+                            url: 'checkInvoiceDeposit.php',
+                            type: 'post',
+                            data: {invoice:invoice},
+                            success: function (data) {
+                                deposit=data;
+                            }
+                        });
+                    }
+                }
+
+                function getInvoiceHistory()
+                {
+                    var invoice=$("#invoice").val();
+					var name=$("#invoice :selected").text();
+					if(invoice==null || invoice=="")
+					{
+						$("#name").attr('readonly', false);
+                    }
+                    else
+                    {
+                        $.ajax({
+                            url: 'checkInvoice.php',
+                            type: 'post',
+                            data: {invoice:invoice, deposit: deposit},
+                            success: function (data) {
+                                $("#historyModalBody").html(data);
+                                $("#exampleModal3").modal("show");
+                            }
+                        });
+                    }
+                }
 
 				function getItemDetailById(id, qty, discount)
 				{
@@ -313,7 +399,9 @@ $api = $conn->query($sql2);
 					var item=[];
 					var qty=[];
 					var payment=$("#payment").val();
-					var method=$("#method").val();
+                    var method=$("#method").val();
+                    var invoice=$("#invoice").val();
+                    var name=$("#name").val();
 					var discount=[];
 
 					for(var i=0;i<myDataTable.length;i++)
@@ -324,14 +412,17 @@ $api = $conn->query($sql2);
 					}
 					
 					$.ajax({
-						url: 'transactionProcess.php',
+						url: 'transactionUnDirect.php',
 						type: 'post',
-						data: {item:item, qty:qty, payment:payment, method: method, discount: discount, mode:1},
+						data: {invoice:invoice, name:name,item:item, qty:qty, deposit:payment, method: method, discount: discount,mode:1},
 						dataType: 'json',
 						async: false,
 						success: function (data) {
 							location.reload();
-						}
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
 					});
 				}
 
@@ -355,11 +446,6 @@ $api = $conn->query($sql2);
 					var grand_total=getGrandTotal();
 					$("#grandTotal").val(grand_total);
 					var payment=$("#payment").val();
-					if(isNaN(payment)==false)
-					{
-						var change=payment-grand_total;
-						$("#change").val(change);
-					}
 				}
 
 				$("#addItem").click(function(){
@@ -403,40 +489,13 @@ $api = $conn->query($sql2);
 					var id_temp=$(this).parent().attr('id');
 
 					$("#addItem").text("Update");
-
 					$("#myItem").val(myDataTableTemp[id_temp].id_item);
 					$("#myItem").change();
 					$("#myQty").val(myDataTableTemp[id_temp].qty);
 
 					var id_temp=$(this).parent().attr("id");
 					myDataTable.splice(id_temp, 1);
-					createHTMLTransactionTable();
-				});
-
-				$("#payment").keyup(function(event) {
-					var grandTotal=parseFloat($("#grandTotal").val());
-					var payment=parseFloat($(this).val());
-					if(isNaN(payment)==false)
-					{
-						var change=payment-grandTotal;
-						if(change>=0)
-						{
-							$("#printBtn").removeAttr('disabled');
-							$("#endTransactionBtn").removeAttr('disabled');
-						}
-						else
-						{
-							$("#printBtn").attr('disabled', 'disabled');
-							$("#endTransactionBtn").attr('disabled', 'disabled');
-						}
-						$("#change").val(change);
-					}
-					else
-					{
-						$("#change").val(0);
-						$("#endTransactionBtn").attr('disabled', 'disabled');
-						$("#endTransactionBtn").attr('disabled', 'disabled');
-					}
+                    createHTMLTransactionTable();
 				});
 
 				$("#method").change(function(){
@@ -483,15 +542,11 @@ $api = $conn->query($sql2);
 							printer.text("------------------------------");
 							if($("#grandTotal").val()!="")
 							{
-								printer.text("Grand Total : "+numberToRupiah(Math.round(parseFloat($("#grandTotal").val())))).bold(true);
+								printer.text("Grand Total : "+numberToRupiah(parseFloat($("#grandTotal").val()))).bold(true);
 							}
-							if($("#payment").val()!="")
+							if($("#deposit").val()!="")
 							{
-								printer.text("Payment     : "+numberToRupiah(parseFloat($("#payment").val()))).bold(true);
-							}
-							if($("#change").val()!="")
-							{
-								printer.text("Change : "+numberToRupiah(parseFloat($("#change").val()))).bold(true);
+								printer.text("Deposit : "+numberToRupiah(parseFloat($("#deposit").val()))).bold(true);
 							}
 							printer.cut()
 							.print();
@@ -508,7 +563,7 @@ $api = $conn->query($sql2);
 					startChar: [120], // Prefix character for the cabled scanner (OPL6845R)
 					endChar: [13], // be sure the scan is complete if key 13 (enter) is detected
 					avgTimeByChar: 40, // it's not a barcode if a character takes longer than 40ms
-					ignoreIfFocusOn: true,
+					//ignoreIfFocusOn: 'input',
 					onComplete: function(barcode, qty){
 						getItemScanner(barcode);
 					} // main callback function	
@@ -532,7 +587,26 @@ $api = $conn->query($sql2);
 							}
 						}
 					});
-				}
+                }
+                
+                $("#historyBtn").click(function(){
+                    getInvoiceHistory();
+                });
+
+                $("#invoice").change(function(){
+                    var name=$("#invoice :selected").text();
+                    getDespositHistory();
+                    if($(this).val()!="")
+                    {
+                        $("#name").attr('readonly',true);
+                        $("#name").val(name);
+                    }
+                    else
+                    {
+                        $("#name").attr('readonly',false);
+                        $("#name").val("");
+                    }
+                });
 			});
 		</script>
 	</body>

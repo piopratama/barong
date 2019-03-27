@@ -25,14 +25,27 @@
 	$discount=$_POST["discount"];
 	$grand_total=0;
 	$date=date('Y-m-d H:i:s');
+	$mode=0;
+	if(isset($_POST["mode"]))
+	{
+		$mode=1;
+	}
 
 	$new_transaction=0;
 	
 	if($name=="")
 	{
 		$_SESSION["message"]="Name can`t be empty";		
-		header("location:unDirectPay.php");
-		return;
+		if($mode!=1)
+		{
+			header("location:unDirectPay.php");
+			return;
+		}
+		else
+		{
+			echo json_encode("");
+			return;
+		}
 	}
 	else
 	{
@@ -154,6 +167,13 @@
 		}
 		
 		$conn->close();
-		header("location:unDirectPay.php");
+		if($mode!=1)
+		{
+			header("location:unDirectPay.php");
+		}
+		else
+		{
+			echo json_encode("");
+		}
 	}
 ?>
