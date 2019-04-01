@@ -102,6 +102,9 @@
 					}
 				}
 				
+				$conn->autocommit(FALSE);
+			    $conn->query("START TRANSACTION");
+
 				$check=0;
 				for($i=0;$i<count($data);$i++)
 				{
@@ -112,14 +115,16 @@
 					} else {
 						echo "Error: " . $sql . "<br>" . $conn->error;
 						$check=1;
+						break;
 					}
 
 					$sql2 = "UPDATE tb_barang SET stock = stock - ".$data[$i]["qty"]." where id =".$data[$i]["id_item"]."";
 					if ($conn->query($sql2) === TRUE) {
-						$last_id = $conn->insert_id;
+
 					} else {
 						echo "Error: " . $sql2s . "<br>" . $conn->error;
 						$check=1;
+						break;
 					}
 				}
 
@@ -127,42 +132,41 @@
 				{
 					$sql="INSERT INTO tb_deposit (`date`,invoice, deposit, payment, method) VALUES ('".$date."','".$invoice."', ".$deposit.", 0,'".$method."')";
 
-					/*if($new_transaction==1)
-					{
-						$sql="INSERT INTO tb_deposit (invoice, deposit, method, rest_total, history) VALUES ('".$invoice."', ".$deposit.", '".$method."', ".($grand_total-$deposit).",".$deposit.")";
-					}
-					else
-					{
-						$sql="UPDATE tb_deposit set deposit=deposit+".$deposit.", rest_total=rest_total-".$deposit."+".$grand_total.", method=CONCAT(method,',".$method."'), history=CONCAT(history,',".$deposit."') where invoice='".$invoice."'";
-					}*/
 					if ($conn->query($sql) === TRUE) {
-						//$last_id = $conn->insert_id;
-						//echo "New record created successfully. Last inserted ID is: " . $last_id;
+						$check=0;
 					} else {
 						echo "Error: " . $sql . "<br>" . $conn->error;
+						$check=1;
 					}
 				}
 
 				if($check==0)
 				{	
+					$conn->commit();
 					$_SESSION["invoice"]=$invoice;
-					$_SESSION["message"]="Insert Successfully";
+					$_SESSION["message"]="Transaksi Berhasil";
 				}
 				else
 				{
-					$_SESSION["message"]="Error";
+					$conn->rollback();
+					$_SESSION["message"]="Transaksi gagal, silahkan ulangi transaksi";
 				}
+			}
+			else
+			{
+				$_SESSION["message"]="Transaksi gagal, silahkan ulangi transaksi";
 			}
 		}
 		else if(trim($invoice)!="" && $deposit!="")
 		{
 			$sql="INSERT INTO tb_deposit (`date`,invoice, deposit, payment, method) VALUES ('".$date."','".$invoice."', ".$deposit.", 0,'".$method."')";
 			if ($conn->query($sql) === TRUE) {
-				$_SESSION["message"]="Insert Successfully";
+				$_SESSION["message"]="Transaksi Berhasil";
 				//$last_id = $conn->insert_id;
 				//echo "New record created successfully. Last inserted ID is: " . $last_id;
 			} else {
 				echo "Error: " . $sql . "<br>" . $conn->error;
+				$_SESSION["message"]="Transaksi gagal, silahkan ulangi transaksi";
 			}
 		}
 		

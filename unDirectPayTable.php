@@ -418,11 +418,11 @@ $historyInvoice = $conn->query($sql);
 						dataType: 'json',
 						async: false,
 						success: function (data) {
-							location.reload();
+							//location.reload();
                         },
-                        error: function (request, status, error) {
-                            alert(request.responseText);
-                        }
+						complete: function(data) {
+							location.reload();
+						}
 					});
 				}
 

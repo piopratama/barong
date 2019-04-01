@@ -16,6 +16,7 @@
 	}
 
 	require ("koneksi.php");
+
 	$invoice="";
 	$name="";
 	$item=$_POST["item"];
@@ -83,68 +84,66 @@
 				}
 			}
 			
+			$conn->autocommit(FALSE);
+			$conn->query("START TRANSACTION");
+
 			$check=0;
 			for($i=0;$i<count($data);$i++)
 			{
-				$sql = "INSERT INTO tb_transaksi (invoice, `nm_transaksi`, `tnggl`, id_employee, id_item, qty, discount, total_price, description, statuss) VALUES ('".$data[$i]["invoice"]."', '".$data[$i]["nm_transaksi"]."','".$data[$i]["tnggl"]."', ".$data[$i]["id_employee"].", ".$data[$i]["id_item"].", ".$data[$i]["qty"].", ".$data[$i]["discount"].", ".$data[$i]["total_price"].", '".$data[$i]["description"]."', ".$data[$i]["statuss"].")";
+				if($i%2==0)
+				{
+					$sql = "INSERT INTO tb_transaksi (invoice, `nm_transaksi`, `tnggl`, id_employee, id_item, qty, discount, total_price, description, statuss) VALUES ('".$data[$i]["invoice"]."', '".$data[$i]["nm_transaksi"]."','".$data[$i]["tnggl"]."', ".$data[$i]["id_employee"].", ".$data[$i]["id_item"].", ".$data[$i]["qty"].", ".$data[$i]["discount"].", ".$data[$i]["total_price"].", '".$data[$i]["description"]."', ".$data[$i]["statuss"].")";
+				}
+				else
+				{
+					$sql = "INSERT INTO tb_transaksi (invoicex, `nm_transaksi`, `tnggl`, id_employee, id_item, qty, discount, total_price, description, statuss) VALUES ('".$data[$i]["invoice"]."', '".$data[$i]["nm_transaksi"]."','".$data[$i]["tnggl"]."', ".$data[$i]["id_employee"].", ".$data[$i]["id_item"].", ".$data[$i]["qty"].", ".$data[$i]["discount"].", ".$data[$i]["total_price"].", '".$data[$i]["description"]."', ".$data[$i]["statuss"].")";
+				}
 				if ($conn->query($sql) === TRUE) {
 					$last_id = $conn->insert_id;
 					//echo "New record created successfully. Last inserted ID is: " . $last_id;
 				} else {
 					echo "Error: " . $sql . "<br>" . $conn->error;
 					$check=1;
+					break;
 				}
 
 				$sql2 = "UPDATE tb_barang SET stock = stock - ".$data[$i]["qty"]." where id =".$data[$i]["id_item"]."";
 				if ($conn->query($sql2) === TRUE) {
-					$last_id = $conn->insert_id;
 				} else {
 					echo "Error: " . $sql2s . "<br>" . $conn->error;
 					$check=1;
+					break;
 				}
 			}
 
 			if($payment!="" && $check==0)
 			{
 				$sql="INSERT INTO tb_deposit (`date`,invoice, deposit, payment, method) VALUES ('".$date."','".$invoice."', 0, ".$grand_total.",'".$method."')";
-				/*if($new_transaction==1)
-				{
-					$sql="INSERT INTO tb_deposit (invoice, deposit, payment, method, rest_total, history) VALUES ('".$invoice."', 0, ".$payment.", '".$method."', 0, '')";
-				}
-				/*else
-				{
-					$sql="UPDATE tb_payment set payment=payment+".$payment." where invoice='".$invoice."'";
-				}*/
 				if ($conn->query($sql) === TRUE) {
-					//$last_id = $conn->insert_id;
-					//echo "New record created successfully. Last inserted ID is: " . $last_id;
+					$check=0;
 				} else {
 					echo "Error: " . $sql . "<br>" . $conn->error;
+					$check=1;
 				}
 			}
 
 			if($check==0)
-			{	
+			{
+				$conn->commit();
 				$_SESSION["invoice"]=$invoice;
 				$_SESSION["message"]="Transaksi Berhasil";
 			}
 			else
 			{
-				$_SESSION["message"]="Error";
+				$conn->rollback();
+				$_SESSION["message"]="Transaksi gagal, silahkan ulangi transaksi";
 			}
 		}
-	}
-	/*else if(trim($invoice)!="" && $payment!="")
-	{
-		$sql="UPDATE tb_payment set payment=payment+".$payment.", rest_total=".$payment."-".." where invoice='".$invoice."'";
-		if ($conn->query($sql) === TRUE) {
-			$_SESSION["message"]="Insert Successfully";
-			//$last_id = $conn->insert_id;
-			//echo "New record created successfully. Last inserted ID is: " . $last_id;
-		} else {
-			echo "Error: " . $sql . "<br>" . $conn->error;
+		else
+		{
+			$_SESSION["message"]="Transaksi gagal, silahkan ulangi transaksi";
 		}
-	}*/
+	}
 	
 	$conn->close();
 	if($mode!=1)
