@@ -83,24 +83,24 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 			<div class="col-md-12 ">
 			<a type="button" class="btn btn-danger glyphicon glyphicon-arrow-left" href="administrator.php" style="margin:0 5px 10px 0;"></a>
 			<table id="example" class="table table-bordered" style="width: 100%;">
-						<h1>TABEL STOK</h1>
+						<h1>TABEL STOCK</h1>
 						
 						
 						<a type="button" class="btn btn-primary glyphicon glyphicon-plus" href="add_data.php" style="margin: 0 0 10px 0" ></a>
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>Tanggal</th>
+								<th>Date</th>
 								<th>Item</th>
-								<th>Kategori</th>
-								<th>Harga Pembelian</th>
-								<th>Harga Penjualan</th>
-								<th>Stok</th>
-								<th>Satuan</th>
-								<th>Suplaiyer</th>
+								<th>Category</th>
+								<th>Purchase Price</th>
+								<th>Price</th>
+								<th>Stock</th>
+								<th>Unit</th>
+								<th>Supplier</th>
 								<th>Total</th>
 								<th>Status</th>
-								<th>Tindakan</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -141,16 +141,16 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 					</table>
 				</div>
 				<div class="col-md-12">
-				<h1>STOK KURANG</h1>
+				<h1>STOCK KURANG</h1>
 					<table id="example2" class="table table-bordered" style="width: 100%;">
 						<thead>
 							<tr>
-								<th>Tanggal</th>
-								<th>Nama Item</th>
-								<th>Stok</th>
-								<th>Satuan</th>
-								<th>Suplaiyer</th>
-								<th> Tindakan</th>
+								<th>Date</th>
+								<th>Item</th>
+								<th>Stock</th>
+								<th>Unit</th>
+								<th>Supplier</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -175,7 +175,7 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 
 					<div class="col-md-12 ">
 				
-					<h1>Kategori</h1>
+					<h1>Category</h1>
 					<table id="example4" class="table table-bordered" style="width: 100%;">
 	
 						
@@ -183,8 +183,8 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 						<thead>
 							<tr>
 								
-								<th>Kategori</th>
-								<th>Harga Pembelian</th>
+								<th>Category</th>
+								<th>Purchase Price</th>
 								
 							</tr>
 						</thead>
@@ -233,6 +233,11 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
                 </div>
             </form>
         </div>
+		
+		<?php 
+			$session_value=(isset($_SESSION['message']))?$_SESSION['message']:'';
+			unset($_SESSION['message']);
+		?>
 
 		<script src="./assets/jquery.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
@@ -242,6 +247,14 @@ $purchase= mysqli_query($conn, "SELECT tb_kategori.`nm_kategori`, SUM(tb_barang.
 		<script>
 		
 			$(document).ready(function() {
+				var message='<?php echo $session_value;?>';
+				if(message!="")
+				{
+					alert(message);
+					/*$("#warning_modal_msg").html(message);
+					$("#exampleModal2").modal('show');*/
+				}
+
 				$("#example").DataTable();
 				$("#example2").DataTable();
 				$("#example3").DataTable();

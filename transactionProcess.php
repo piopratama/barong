@@ -90,14 +90,7 @@
 			$check=0;
 			for($i=0;$i<count($data);$i++)
 			{
-				if($i%2==0)
-				{
-					$sql = "INSERT INTO tb_transaksi (invoice, `nm_transaksi`, `tnggl`, id_employee, id_item, qty, discount, total_price, description, statuss) VALUES ('".$data[$i]["invoice"]."', '".$data[$i]["nm_transaksi"]."','".$data[$i]["tnggl"]."', ".$data[$i]["id_employee"].", ".$data[$i]["id_item"].", ".$data[$i]["qty"].", ".$data[$i]["discount"].", ".$data[$i]["total_price"].", '".$data[$i]["description"]."', ".$data[$i]["statuss"].")";
-				}
-				else
-				{
-					$sql = "INSERT INTO tb_transaksi (invoicex, `nm_transaksi`, `tnggl`, id_employee, id_item, qty, discount, total_price, description, statuss) VALUES ('".$data[$i]["invoice"]."', '".$data[$i]["nm_transaksi"]."','".$data[$i]["tnggl"]."', ".$data[$i]["id_employee"].", ".$data[$i]["id_item"].", ".$data[$i]["qty"].", ".$data[$i]["discount"].", ".$data[$i]["total_price"].", '".$data[$i]["description"]."', ".$data[$i]["statuss"].")";
-				}
+				$sql = "INSERT INTO tb_transaksi (invoice, `nm_transaksi`, `tnggl`, id_employee, id_item, qty, discount, total_price, description, statuss) VALUES ('".$data[$i]["invoice"]."', '".$data[$i]["nm_transaksi"]."','".$data[$i]["tnggl"]."', ".$data[$i]["id_employee"].", ".$data[$i]["id_item"].", ".$data[$i]["qty"].", ".$data[$i]["discount"].", ".$data[$i]["total_price"].", '".$data[$i]["description"]."', ".$data[$i]["statuss"].")";
 				if ($conn->query($sql) === TRUE) {
 					$last_id = $conn->insert_id;
 					//echo "New record created successfully. Last inserted ID is: " . $last_id;

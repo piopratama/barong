@@ -28,6 +28,10 @@ $barcode=$_POST['barcode'];
 $date=date('Y-m-d H:i:s');
 
 
-mysqli_query($conn, "UPDATE tb_barang SET item='$name', price='$price', stock='$stock', unit='$unit', supplier='$supplier', barcode='$barcode', kategori='$category', `date`='$date', pur_price='$purchase' WHERE id='$id'");
+$result=mysqli_query($conn, "UPDATE tb_barang SET item='$name', price='$price', stock='$stock', unit='$unit', supplier='$supplier', barcode='$barcode', kategori='$category', `date`='$date', pur_price='$purchase' WHERE id='$id'");
+if(!$result)
+{
+    $_SESSION["message"]="Transaksi gagal, silahkan ulangi transaksi";
+}
 header("location:stock.php");
 ?>

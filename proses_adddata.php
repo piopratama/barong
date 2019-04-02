@@ -31,6 +31,9 @@
 											
 	// Insert user data into table
 	$result = mysqli_query($conn, "INSERT INTO tb_barang(item,price,stock,unit,kategori,supplier,pur_price,barcode, `date`) VALUES('$name','$price','$stock','$unit','$kategori','$supplier','$purchase','$barcode', '$date')");
-									
+	if(!$result)
+	{
+		$_SESSION["message"]="Transaksi gagal, silahkan ulangi transaksi";
+	}			
 	header("location:stock.php");
 ?>
