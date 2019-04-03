@@ -11,6 +11,32 @@
     <script src="./assets/pace.js"></script>
     <link rel="stylesheet" href="./assets/pace.css">
 
+    <style>
+        label, input {
+            letter-spacing:1px !important;
+        }
+        .header {
+            border-radius:0px;
+            padding-left:0px;
+            padding-right:0px;
+        }
+        .navbar-default {
+            background-color: #38B593;
+            border-radius:0px;
+            height:80px;
+        }
+
+        .navbar-brand {
+            font-size: 40px;
+            margin-top:15px; 
+            color:black !important;   
+        }
+
+        .btn {
+            border: none;
+        }
+    </style>
+
     <script>
         function isNumberKey(evt){
 					var charCode = (evt.which) ? evt.which : event.keyCode
@@ -19,21 +45,6 @@
 						return true;
 					return false;
 				}
-        
-        function numberToRupiah(bilangan)
-        {
-            var	number_string = bilangan.toString(),
-                sisa 	= number_string.length % 3,
-                rupiah 	= number_string.substr(0, sisa),
-                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
-                    
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-
-            return rupiah;
-        }
 
         function formatDate(date) {
             var monthNames = [
@@ -46,9 +57,11 @@
             var day = date.getDate();
             var monthIndex = date.getMonth();
             var year = date.getFullYear();
+            var d = new Date(); // for now
+            return day + ' ' + monthNames[monthIndex] + ' ' + year+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+        }
 
-            return day + ' ' + monthNames[monthIndex] + ' ' + year;
-        }   
+       
     </script>
     <?php
         function rupiah($angka){
