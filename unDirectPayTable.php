@@ -45,11 +45,11 @@ $historyInvoice = $conn->query($sql);
 									<span class="icon-bar"></span>
 									<span class="icon-bar"></span>
 								</button>
-								<a class="navbar-brand" style="font-size: 40px;" href="#">Barong</a>
+								<a class="navbar-brand" style="font-size: 40px;" href="#" tabindex="-1">Barong</a>
 							</div>
 							<div class="collapse navbar-collapse navbar-ex1-collapse">						
 								<ul class="nav navbar-nav navbar-right">
-									<li><a type="button" class="btn btn-danger" style="margin: 10px; padding: 10px;" href="logout.php">Logout</a></li>
+									<li><a type="button" class="btn btn-danger" style="margin: 10px; padding: 10px;" tabindex="-1" href="logout.php">Logout</a></li>
 									<li><a href=""><!-- <?php  echo $_SESSION['username'];  ?> --> </a></li>
 								</ul>
 							</div><!-- /.navbar-collapse -->
@@ -61,12 +61,12 @@ $historyInvoice = $conn->query($sql);
 		<div class="container-fluid">
 			<div class="row" id="parent_item_container">
 				<div class="col-md-3" style="background:orange;padding-top:10px;padding-bottom:10px;">
-					<a class="btn btn-danger glyphicon glyphicon-arrow-left" href="mainMenu.php"></a>
+					<a class="btn btn-danger glyphicon glyphicon-arrow-left" tabindex="-1" href="mainMenu.php"></a>
 					<hr>
 					<div style="margin-top:10px;">
 						<div class="form-group">
 							<label for="">Date</label>
-							<input type="date" class="form-control" id="date" value="<?php echo date('Y-m-d'); ?>" placeholder="" readonly="readonly">
+							<input type="date" class="form-control" id="date" tabindex="-1" value="<?php echo date('Y-m-d'); ?>" placeholder="" readonly="readonly">
 						</div>
 						<hr>
                         <div class="form-group">
@@ -136,32 +136,9 @@ $historyInvoice = $conn->query($sql);
 						<div class="clear" style="clear:both;"></div>
 					</div>
 					<hr>
-					<div>
-						<div class="form-group">
-							<label for="" id="grand_total_label">Total Bayar</label>
-							<input type="text" class="form-control" id="grandTotal" placeholder="Grand Total" readonly="readonly">
-						</div>
-						<div class="form-group">
-							<label for="">Metode Pembayaran</label>
-							<select class="form-control" name="method" id="method">
-								<option value="cash">Cash</option>
-								<option value="transfer">Transfer</option>
-							</select>
-						</div>
-						<div class="form-group">
-                            <label for="">Deposit</label>
-							<input type="text" class="form-control" name="payment" id="payment" placeholder="Deposit" required="required">
-						</div>
-						
-						<div style="text-align:center;">
-							<button type="button"class="btn btn-success" id="printBtn" style="width:150px;">Print</button>
-							<button type="submit"class="btn btn-primary" id="endTransactionBtn" style="width:150px;">End Transaction</button>
-						</div>
-					</div>
-					<hr>
 				</div>
 				<div class="col-md-9">
-					<div style="height: 950px !important;overflow: scroll;">
+					<div style="height: 500px !important;overflow: scroll;">
 						<table class="table table-bordered">
 							<thead>
 								<tr>
@@ -192,6 +169,37 @@ $historyInvoice = $conn->query($sql);
 								<tr>
 							</tbody>
 						</table>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="" id="grand_total_label">Total Bayar</label>
+								<input type="text" class="form-control" id="grandTotal" placeholder="Grand Total" readonly="readonly">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="">Metode Pembayaran</label>
+								<select class="form-control" name="method" id="method">
+									<option value="cash">Cash</option>
+									<option value="transfer">Transfer</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="">Deposit</label>
+								<input type="text" class="form-control" name="payment" id="payment" placeholder="Deposit" required="required">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<button type="button"class="btn btn-success" id="printBtn" style="width:150px;">Print</button>
+						</div>
+						<div class="col-md-4">
+							<button type="submit"class="btn btn-primary" id="endTransactionBtn" style="width:150px;">End Transaction</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -434,7 +442,7 @@ $historyInvoice = $conn->query($sql);
 						html=html+"<tr>";
 						html=html+"<td>"+(i+1)+"</td>";
 						html=html+"<td>"+myDataTable[i].item+"</td>";
-						html=html+"<td>"+myDataTable[i].qty+"</td>";
+						html=html+"<td><input type='text' class='form-control qtyTable' value='"+myDataTable[i].qty+"'></input></td>";
 						html=html+"<td>"+myDataTable[i].unit+"</td>";
 						html=html+"<td>"+myDataTable[i].price+"</td>";
 						html=html+"<td>"+myDataTable[i].discount+"</td>";
@@ -448,11 +456,45 @@ $historyInvoice = $conn->query($sql);
 					var payment=$("#payment").val();
 				}
 
+				$("table").on('keyup','.qtyTable',function(){
+					var i=$(this).index(".qtyTable");
+					myDataTable[i].qty=$(this).val();
+					var grand_total=getGrandTotal();
+					$("#grandTotal").val(grand_total);
+					var payment=$("#payment").val();
+					if(isNaN(payment)==false)
+					{
+						var change=payment-grand_total;
+						$("#change").val(change);
+					}
+				});
+
+				document.onkeyup = function(e) {
+					if (e.ctrlKey && e.altKey && e.which == 70) {
+						if($("#endTransactionBtn").is(':enabled'))
+						{
+							saveTransaction();
+						}
+						else
+						{
+							alert("Silahkan Isi Table Item Untuk Mengakhiri Transaksi");
+						}
+					}
+					else if(e.which==79)
+					{
+						$('#myItem').select2('open');
+					}
+					else if(e.which==13 && $("#myItem").is(':disabled'))
+					{
+						$("#addItem").click(); 
+					}
+				};
+
 				$("#addItem").click(function(){
 					var id=$("#myItem").val();
 					var qty=$("#myQty").val();
 					var discount=$("#myDiscount").val();
-					if(id!=null && id!="")
+					if(id!=null && id!="" && qty!="")
 					{
 						var data=getItemDetailById(id, qty, discount);
 						var dataExist=false;
@@ -475,6 +517,10 @@ $historyInvoice = $conn->query($sql);
 							}
 							createHTMLTransactionTable();
 						}
+					}
+					else
+					{
+						alert("Item dan Quantity tidak boleh kosong");
 					}
 					$("#addItem").text("Add");
 				});

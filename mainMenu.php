@@ -61,7 +61,7 @@ else
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
-					<a href="unDirectPayTable.php" style="display:none;"><button type="button" class="btn btn-default" id="undirectpayMenu">Undirect Pay</button></a>
+					<a href="unDirectPayTable.php"><button type="button" class="btn btn-default" id="undirectpayMenu">Undirect Pay</button></a>
 				</div>
 				<div class="col-md-4"></div>
 			</div>
